@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "357405258372",
+    "firebase_url": "https://wisuh-b4bdf.firebaseio.com",
+    "project_id": "wisuh-b4bdf",
+    "storage_bucket": "wisuh-b4bdf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357405258372:android:17032dfe91fc2c232488d1",
+        "android_client_info": {
+          "package_name": "id.ac.umn.wisuh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "357405258372-onnu9eafcd9th63ht1p6k8p1h63n7d9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK1tQ0vva-q9bLJKnXh7DanLxyNDfsWpo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "357405258372-onnu9eafcd9th63ht1p6k8p1h63n7d9u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
