@@ -53,6 +53,10 @@ public class LoginActivity extends AppCompatActivity {
 
                         //User Logged in Successfully Launch You home screen activity
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("email",currentUser.email);
+                        intent.putExtra("nomorHp",currentUser.pNumber);
+                        intent.putExtra("fname",currentUser.fName);
+                        intent.putExtra("lname",currentUser.lName);
                         startActivity(intent);
                         finish();
 

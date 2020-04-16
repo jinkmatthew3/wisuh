@@ -9,15 +9,16 @@
         android:roundIcon="@mipmap/wisuh_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="id.ac.umn.wisuh.LoginActivity">
+        <activity android:name=".ProfilActivity"></activity>
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="id.ac.umn.wisuh.RegisterActivity"></activity>
-        <activity android:name="id.ac.umn.wisuh.MainActivity"></activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>
