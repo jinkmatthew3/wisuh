@@ -19,6 +19,8 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".NearbyActivity"/>
+        <activity android:name=".HomeActivity"/>
     </application>
 
 </manifest>
