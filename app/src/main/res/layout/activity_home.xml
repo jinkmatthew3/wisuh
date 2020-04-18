@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_home">
+
+
+    <!--    Image Setting-->
+
+    <TextView
+        android:id="@+id/settingTextView"
+        android:layout_width="290dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/reguler"
+        android:text="Setting"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:typeface="sans"
+        app:layout_constraintBottom_toBottomOf="@id/search"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintLeft_toLeftOf="@id/settingbtn"
+        app:layout_constraintRight_toRightOf="@id/lovebtn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.159" />
+
+
+    <!--    Image Account-->
+
+
+    <ImageButton
+        android:id="@+id/lovebtn"
+        android:layout_width="60dp"
+        android:layout_height="58dp"
+        android:background="@drawable/heart_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="@id/settingTextView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.01" />
+
+    <ImageButton
+        android:id="@+id/settingbtn"
+        android:layout_width="29dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/navbar_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.037"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/settingTextView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.034" />
+
+    <SearchView
+        android:id="@+id/search"
+        android:layout_width="342dp"
+        android:layout_height="33dp"
+        android:autofillHints="Search"
+        android:background="@drawable/input_field"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/settingTextView"
+        app:layout_constraintVertical_bias="0.12" />
+
+    <!--    Menu Services End-->
+
+
+    <!--    Bar Bawah ( Home, Account, dll)-->
+    <ImageView
+        android:id="@+id/car"
+        android:layout_width="275dp"
+        android:layout_height="240dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/search"
+        app:layout_constraintVertical_bias="0.206"
+        app:srcCompat="@drawable/car" />
+
+    <ImageButton
+        android:id="@+id/btn2"
+        android:layout_width="84dp"
+        android:layout_height="63dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="@id/nearbybtn"
+        app:layout_constraintRight_toRightOf="@id/btn3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.608"
+        android:background="@drawable/ellipse_icon"/>
+
+    <ImageButton
+        android:id="@+id/btn3"
+        android:layout_width="84dp"
+        android:layout_height="63dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.818"
+        app:layout_constraintLeft_toLeftOf="@id/btn2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.604"
+        android:background="@drawable/ellipse_icon"/>
+
+
+    <ImageButton
+        android:id="@+id/nearbybtn"
+        android:layout_width="84dp"
+        android:layout_height="63dp"
+        android:background="@drawable/ellipse_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.181"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/btn2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.607" />
+
+
+    <ImageView
+        android:layout_width="34dp"
+        android:layout_height="35dp"
+        android:background="@drawable/draw_car"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.276"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/btn2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.602" />
+
+    <ImageButton
+        android:id="@+id/imageButton5"
+        android:layout_width="84dp"
+        android:layout_height="63dp"
+        android:background="@drawable/ellipse_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/btn2"
+        app:layout_constraintTop_toTopOf="@id/nearbybtn"
+        app:layout_constraintVertical_bias="0.358" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="414dp"
+        android:layout_height="54dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+
+        <ImageButton
+            android:id="@+id/accountbtn"
+            android:layout_width="47dp"
+            android:layout_height="40dp"
+            android:background="@drawable/avatar_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.822"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.333" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bold"
+            android:text="Account"
+            android:typeface="sans"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.820"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+
+        <ImageButton
+            android:id="@+id/homebtn"
+            android:layout_width="46dp"
+            android:layout_height="42dp"
+            android:background="@drawable/home_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.169"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+        </ImageButton>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bold"
+            android:text="Home"
+            android:typeface="sans"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.187"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+
+        <ImageButton
+            android:id="@+id/activitybtn"
+            android:layout_width="30dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/activity_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintLeft_toLeftOf="@id/homebtn"
+            app:layout_constraintRight_toRightOf="@id/accountbtn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bold"
+            android:text="Activity"
+            android:typeface="sans"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.4982"
+            app:layout_constraintLeft_toLeftOf="@id/homebtn"
+            app:layout_constraintRight_toRightOf="@id/accountbtn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

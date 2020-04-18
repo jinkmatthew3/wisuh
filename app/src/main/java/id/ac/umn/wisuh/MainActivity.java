@@ -16,26 +16,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        cobaDoang = findViewById(R.id.awal);
-        Intent intent = getIntent();
-        email = (String) intent.getStringExtra("email");
-        pNumber = intent.getStringExtra("nomorHp");
-        fName = intent.getStringExtra("fname");
-        lName = intent.getStringExtra("lname");
-        Button btnProfil = findViewById(R.id.btnProfil);
 
-        btnProfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ProfilActivity.class);
-                intent.putExtra("email",email);
-                intent.putExtra("nomorHp",pNumber);
-                intent.putExtra("fname",fName);
-                intent.putExtra("lname",lName);
-                startActivity(intent);
+        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        startActivity(intent);
 
-            }
-        });
+//        cobaDoang = findViewById(R.id.awal);
+//        Intent intent = getIntent();
+//        email = (String) intent.getStringExtra("email");
+//        pNumber = intent.getStringExtra("nomorHp");
+//        fName = intent.getStringExtra("fname");
+//        lName = intent.getStringExtra("lname");
+//        Button btnProfil = findViewById(R.id.btnProfil);
+//
+//        btnProfil.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, ProfilActivity.class);
+//                intent.putExtra("email",email);
+//                intent.putExtra("nomorHp",pNumber);
+//                intent.putExtra("fname",fName);
+//                intent.putExtra("lname",lName);
+//                startActivity(intent);
+//
+//            }
+//        });
 //        cobaDoang.setText(email+pNumber+fName+lName);
     }
 }
