@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 
+
 //        accountbtn = findViewById(R.id.accountbtn);
 //        activitybtn = findViewById(R.id.activitybtn);
 //        lovebtn = findViewById(R.id.lovebtn);
