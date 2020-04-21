@@ -49,11 +49,11 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
 //        cobaDoang = findViewById(R.id.awal);
-//        Intent intent = getIntent();
-//        email = (String) intent.getStringExtra("email");
-//        pNumber = intent.getStringExtra("nomorHp");
-//        fName = intent.getStringExtra("fname");
-//        lName = intent.getStringExtra("lname");
+        Intent intent = getIntent();
+        email = intent.getStringExtra("email");
+        pNumber = intent.getStringExtra("nomorHp");
+        fName = intent.getStringExtra("fname");
+        lName = intent.getStringExtra("lname");
 //        Button btnProfil = findViewById(R.id.btnProfil);
 //
 //        btnProfil.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +104,12 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case R.id.profileMenu:
                             selectedFragment = new ProfileFragment();
+                            Bundle data = new Bundle();
+                            data.putString("email",email);
+                            data.putString("nomorHp",pNumber);
+                            data.putString("fname",fName);
+                            data.putString("lname",lName);
+                            selectedFragment.setArguments(data);
                             break;
                     }
 
