@@ -1,16 +1,29 @@
 package id.ac.umn.wisuh;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -23,10 +36,18 @@ public class RegisterActivity extends AppCompatActivity {
     //Declaration SqliteHelper
     SqliteHelper sqliteHelper;
 
+    //Firebase Authentication
+    private FirebaseAuth mAuth;
+
+    //Firebase Firestore
+    private FirebaseFirestore db;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
         sqliteHelper = new SqliteHelper(this);
         initLogin();
         initViews();
@@ -40,25 +61,35 @@ public class RegisterActivity extends AppCompatActivity {
                     String Email = etEmail.getText().toString();
                     String Password = etPassword.getText().toString();
 
-                    //Check in the database is there any user associated with  this email
-                    if (!sqliteHelper.isEmailExists(Email)) {
-                        //Email does not exist now add new user to database
-                        sqliteHelper.addCustomer(new Customer(null, FName, LName, PhoneNum, Email, Password));
-                        Snackbar.make(btnRegister, "User created successfully! Please Login ", Snackbar.LENGTH_LONG).show();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                finish();
-                            }
-                        },
-                                Snackbar.LENGTH_LONG);
-                    }else {
-                        //Email exists with email input provided so show error user already exist
-                        Snackbar.make(btnRegister, "User already exists with same email ", Snackbar.LENGTH_LONG).show();
-                    }
+                    register(Email,Password,PhoneNum,FName,LName);
+
+
+//                    //Check in the database is there any user associated with  this email
+//                    if (!sqliteHelper.isEmailExists(Email)) {
+//                        //Email does not exist now add new user to database
+//                        sqliteHelper.addCustomer(new Customer(null, FName, LName, PhoneNum, Email, Password));
+//                        Snackbar.make(btnRegister, "User created successfully! Please Login ", Snackbar.LENGTH_LONG).show();
+//                        new Handler().postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                finish();
+//                            }
+//                        },
+//                                Snackbar.LENGTH_LONG);
+//                    }else {
+//                        //Email exists with email input provided so show error user already exist
+//                        Snackbar.make(btnRegister, "User already exists with same email ", Snackbar.LENGTH_LONG).show();
+//                    }
                 }
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
     //this method used to set Login TextView click event
@@ -158,5 +189,53 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         return valid;
+    }
+
+    public void register(final String Email, final String Password, final String PhoneNum, final String FName, final String LName){
+        mAuth.createUserWithEmailAndPassword(Email, Password)
+            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d("register", "createUserWithEmail:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        Map<String, Object> users = new HashMap<>();
+                        users.put("email", Email);
+                        users.put("password", Password);
+                        users.put("pNumber", PhoneNum);
+                        users.put("fName", FName);
+                        users.put("lName", LName);
+
+                        db.collection("users").document(user.getUid())
+                            .set(users)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("register", "DocumentSnapshot successfully written!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("register", "Error writing document", e);
+                                }
+                            });
+                        Snackbar.make(btnRegister, "User created successfully! Please Login ", Snackbar.LENGTH_LONG).show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                            }
+                        },Snackbar.LENGTH_LONG);
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w("register", "createUserWithEmail:failure", task.getException());
+                        Toast.makeText(RegisterActivity.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                        //updateUI(null);
+                    }
+                }
+            });
     }
 }

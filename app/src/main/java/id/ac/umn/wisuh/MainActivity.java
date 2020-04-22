@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     private TextView cobaDoang;
@@ -85,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
             //ini isi intent ke setting
         } else if ( id == R.id.logoutMenu) {
             //ini isi intent ke logout menu login
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
         return true;
     }

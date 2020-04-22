@@ -1,17 +1,34 @@
 package id.ac.umn.wisuh;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
     //Declaration EditTexts
@@ -24,6 +41,14 @@ public class LoginActivity extends AppCompatActivity {
     //Declaration SqliteHelper
     SqliteHelper sqliteHelper;
 
+    //Firebase Authentication
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+
+    //Firebase Firestore
+    private FirebaseFirestore db;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +56,11 @@ public class LoginActivity extends AppCompatActivity {
         sqliteHelper = new SqliteHelper(this);
         initRegister();
         initViews();
+
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
+        db = FirebaseFirestore.getInstance();
 
         //set click event of login button
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +77,9 @@ public class LoginActivity extends AppCompatActivity {
                     //Authenticate user
                     Customer currentUser = sqliteHelper.Authenticate(new Customer(null, null,null,null, Email, Password));
 
-                    //Check Authentication is successful or not
+                    signIn(Email,Password);
+
+                    /*//Check Authentication is successful or not
                     if (currentUser != null) {
                         Snackbar.make(btnLogin, "Successfully Logged in!", Snackbar.LENGTH_LONG).show();
 
@@ -63,11 +95,46 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         //User Logged in Failed
                         Snackbar.make(btnLogin, "Incorrect Email or Password!", Snackbar.LENGTH_LONG).show();
-                    }
+                    }*/
                 }
             }
         });
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        user = mAuth.getCurrentUser();
+        //Ambil document dengan index user getUid terus masukkin ke String buat ke Intent berikutnya
+        if(user != null){
+            DocumentReference docRef = db.collection("users").document(user.getUid());
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            String email = document.getString("email");
+                            String pNumber = document.getString("pNumber");
+                            String fName = document.getString("fName");
+                            String lName = document.getString("lName");
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.putExtra("email",email);
+                            intent.putExtra("nomorHp",pNumber);
+                            intent.putExtra("fname",fName);
+                            intent.putExtra("lname",lName);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Log.d("signIn", "No such document");
+                        }
+                    } else {
+                        Log.d("signIn", "get failed with ", task.getException());
+                    }
+                }
+            });
+        }
 
     }
 
@@ -135,5 +202,49 @@ public class LoginActivity extends AppCompatActivity {
 //            }
         }
         return valid;
+    }
+
+    private void signIn(String Email, String Password){
+        mAuth.signInWithEmailAndPassword(Email, Password)
+        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    user = mAuth.getCurrentUser();
+                    Log.d("signIn",user.getUid());
+
+                    //Ambil document dengan index user getUid terus masukkin ke String buat ke Intent berikutnya
+                    DocumentReference docRef = db.collection("users").document(user.getUid());
+                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    String email = document.getString("email");
+                                    String pNumber = document.getString("pNumber");
+                                    String fName = document.getString("fName");
+                                    String lName = document.getString("lName");
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    intent.putExtra("email",email);
+                                    intent.putExtra("nomorHp",pNumber);
+                                    intent.putExtra("fname",fName);
+                                    intent.putExtra("lname",lName);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Log.d("signIn", "No such document");
+                                }
+                            } else {
+                                Log.d("signIn", "get failed with ", task.getException());
+                            }
+                        }
+                    });
+                } else {
+                    Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
