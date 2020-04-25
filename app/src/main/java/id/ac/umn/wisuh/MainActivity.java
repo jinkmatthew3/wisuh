@@ -2,6 +2,7 @@ package id.ac.umn.wisuh;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
+
     private TextView cobaDoang;
     public String email,pNumber,fName,lName;
     private ImageButton accountbtn, activitybtn, lovebtn, settingbtn, nearbtn;
@@ -55,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
         pNumber = intent.getStringExtra("nomorHp");
         fName = intent.getStringExtra("fname");
         lName = intent.getStringExtra("lname");
+        Log.d("email",email);
+        Log.d("hp",pNumber);
+        Log.d("fname",fName);
+        Log.d("lname",lName);
 //        Button btnProfil = findViewById(R.id.btnProfil);
 //
 //        btnProfil.setOnClickListener(new View.OnClickListener() {
