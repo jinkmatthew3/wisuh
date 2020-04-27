@@ -26,7 +26,7 @@ public class NearbyActivity extends AppCompatActivity {
         clayout = findViewById(R.id.scrollview);
 
         //Adding secara dynamic
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 1; i <= 7; i++) {
             ImageView imgView = new ImageView(this);
             imgView.setLayoutParams(new android.view.ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 //            imgView.setMaxHeight(510);

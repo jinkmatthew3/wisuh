@@ -1,90 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/background_main1">
 
-    <ImageView
+
+    <RelativeLayout
+        android:id="@+id/image_btn"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/background_main"
-        android:scaleType="centerCrop"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.009"
+        tools:ignore="RtlCompat">
+        <ImageButton
+            android:id="@+id/btn_carwash"
+            android:layout_width="390dp"
+            android:layout_height="110dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/rectangle"
+            android:padding="16dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/car_washing_icon" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-372dp"
+            android:layout_marginTop="150dp"
+            android:layout_toEndOf="@+id/btn_carwash"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="bottom"
+            android:text="Carwash"
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
+        android:id="@+id/image_btn2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <!--    home item-->
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/image_btn"
+        app:layout_constraintVertical_bias="0.373"
+        tools:ignore="RtlCompat">
+        <ImageButton
+            android:id="@+id/btn_salon"
+            android:layout_width="390dp"
+            android:layout_height="110dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/rectangle"
+            android:padding="16dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/car_repair_icon" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-372dp"
+            android:layout_marginTop="150dp"
+            android:layout_toEndOf="@+id/btn_salon"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="bottom"
+            android:text="Car Salon"
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/image_btn3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/image_btn2"
+        app:layout_constraintVertical_bias="0.726"
+        tools:ignore="RtlCompat">
 
         <ImageButton
-            android:id="@+id/btnNearby"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="284dp"
-            android:layout_marginEnd="48dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:background="@drawable/button_round"
-            android:padding="10dp"
+            android:id="@+id/btn_deals"
+            android:layout_width="390dp"
+            android:layout_height="110dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/rectangle"
+            android:padding="16dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/nearby"
-            app:layout_constraintEnd_toStartOf="@+id/btnRecommendation"
-            app:layout_constraintHorizontal_bias="0.987"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:src="@drawable/car_washing_icon" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-372dp"
+            android:layout_marginTop="150dp"
+            android:layout_toEndOf="@+id/btn_deals"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="bottom"
+            android:text="Deals"
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
-        <ImageButton
-            android:id="@+id/btnRecommendation"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="284dp"
-            android:layout_marginEnd="80dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:background="@drawable/button_round"
-            android:padding="10dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/place"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/btnPlace"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="44dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:background="@drawable/button_round"
-            android:padding="20dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/recommend"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnPromo"
-            app:layout_constraintHorizontal_bias="0.625"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnNearby"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <ImageButton
-            android:id="@+id/btnPromo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="45dp"
-            android:layout_marginEnd="80dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:background="@drawable/button_round"
-            android:padding="10dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/promo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnRecommendation"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <!--    end of home item-->
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--        <ImageButton-->
+<!--            android:id="@+id/btndeals"-->
+<!--            android:layout_width="390dp"-->
+<!--            android:layout_height="101dp"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginTop="196dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:adjustViewBounds="true"-->
+<!--            android:background="@drawable/rectangle"-->
+<!--            android:padding="10dp"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            android:src="@drawable/nearby"-->
+<!--            app:layout_constraintHorizontal_bias="0.987"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@id/btnsalon" />-->
 
 
-</RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
