@@ -9,5 +9,12 @@
     <color name="light_gray">#C3C3C3</color>
     <color name="black">#000000</color>
     <color name="red">#FF0000</color>
+    <color name="yellow">#FFE500</color>
+    <color name="blue2">#00B0FF</color>
     <color name="backgroundcolortextprofil">#c4faff</color>
+    <color name="color1">#424549</color>
+    <color name="color2">#7e455e</color>
+    <color name="color3">#796e25</color>
+    <color name="color4">#59717c</color>
+    <color name="color5">#9188A2</color>
 </resources>

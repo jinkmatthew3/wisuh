@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,6 +43,9 @@ public class RegisterActivity extends AppCompatActivity {
     //Firebase Firestore
     private FirebaseFirestore db;
 
+    //ProgressBar
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +64,9 @@ public class RegisterActivity extends AppCompatActivity {
                     String PhoneNum = etPhoneNum.getText().toString();
                     String Email = etEmail.getText().toString();
                     String Password = etPassword.getText().toString();
+
+                    //loading progress Bar
+                    progressBar.setVisibility(View.VISIBLE);
 
                     register(Email,Password,PhoneNum,FName,LName);
 
@@ -112,6 +119,8 @@ public class RegisterActivity extends AppCompatActivity {
         etPassword = (EditText) findViewById(R.id.etPassword);
         etRePassword = (EditText) findViewById(R.id.etRePassword);
         btnRegister = (Button) findViewById(R.id.btnRegister);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
     }
 
     //validasi input user

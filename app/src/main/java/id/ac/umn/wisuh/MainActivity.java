@@ -88,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
 
         if ( id == R.id.aboutMenu){
             //ini isi intent ke about
+            Intent intentAbout = new Intent(MainActivity.this, AboutActivity.class);
+            startActivity(intentAbout);
+
         } else if ( id == R.id.settingMenu) {
             //ini isi intent ke setting
         } else if ( id == R.id.logoutMenu) {

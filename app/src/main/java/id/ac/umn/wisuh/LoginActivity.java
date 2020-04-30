@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,9 @@ public class LoginActivity extends AppCompatActivity {
     //Firebase Firestore
     private FirebaseFirestore db;
 
+    //ProgressBar
+    ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,9 @@ public class LoginActivity extends AppCompatActivity {
                     //Get values from EditText fields
                     String Email = etEmail.getText().toString();
                     String Password = etPassword.getText().toString();
+
+                    //loading progress Bar
+                    progressBar.setVisibility(View.VISIBLE);
 
                     //Authenticate user
                     Customer currentUser = sqliteHelper.Authenticate(new Customer(null, null,null,null, Email, Password));
@@ -156,6 +163,7 @@ public class LoginActivity extends AppCompatActivity {
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
     }
 
