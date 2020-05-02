@@ -28,6 +28,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -41,7 +43,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends androidx.fragment.app.Fragment {
     TextView tvuname, tvFname,tvLname, tvnoHp,tvemail;
     Button btnEditProfil;
-    ImageButton btnEditfotoProfil;
+    ImageButton btnEditfotoProfil, buttonClickedEditFName,buttonClickedEditLName,buttonClickedEditNohp,buttonClickedEditEmail;
+    AlertDialog.Builder dialog;
+
+//    Dialog buat edit informasi data diri
+    EditText DETfname,DETlname,DETnohp,DETemail;
+    String fname,lname,nohp,Eemail,email,fName,lName,pNumber;
+    DatabaseReference databaseReference;
+
+    View dialogView;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     CircleImageView fotoprofil;
@@ -60,15 +70,23 @@ public class ProfileFragment extends androidx.fragment.app.Fragment {
         tvLname = view.findViewById(R.id.tvLname);
         fotoprofil = view.findViewById(R.id.fotoProfil);
         btnEditfotoProfil = view.findViewById(R.id.btnEditfotoProfil);
+        buttonClickedEditFName = view.findViewById(R.id.editFname);
+        buttonClickedEditLName = view.findViewById(R.id.editLname);
+        buttonClickedEditNohp = view.findViewById(R.id.editNohp);
+        buttonClickedEditEmail = view.findViewById(R.id.editEmail);
+
+
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         user = mAuth.getCurrentUser();
+//        databaseReference = FirebaseDatabase.getInstance().getReference(user.getUid());
 
+
+        final DocumentReference docRef = db.collection("users").document(user.getUid());
+
+//        buat ambil data foto progil dari firebase
         storageReference = FirebaseStorage.getInstance().getReference();
-        DocumentReference docRef = db.collection("users").document(user.getUid());
-
-
         StorageReference profilRef = storageReference.child("users/"+user.getUid()+"/profil.jpg");
         profilRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -76,14 +94,6 @@ public class ProfileFragment extends androidx.fragment.app.Fragment {
                 Picasso.get().load(uri).into(fotoprofil);
             }
         });
-//        btnEditProfil = view.findViewById(R.id.btnEditProfil);
-
-//        String fName = getArguments().getString("fname");
-//        String lName = getArguments().getString("lname");
-//        String email = getArguments().getString("email");
-//        String pNumber = getArguments().getString("nomorHp");
-//        Log.d("profil name",fName);
-
 
 
         if(user != null){
@@ -94,16 +104,18 @@ public class ProfileFragment extends androidx.fragment.app.Fragment {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
-                            String email = document.getString("email");
-                            String pNumber = document.getString("pNumber");
-                            String fName = document.getString("fName");
-                            String lName = document.getString("lName");
+                            email = document.getString("email");
+                            pNumber = document.getString("pNumber");
+                            fName = document.getString("fName");
+                            lName = document.getString("lName");
                             tvuname.setText("Hi, "+fName+" "+lName);
                             tvFname.setText(fName);
                             tvLname.setText(lName);
                             tvemail.setText(email);
                             tvnoHp.setText(pNumber);
-                        } else {
+                        }
+//                        TINGGAL DI BENERIN LOGHNYA
+                        else {
                             Log.d("signIn", "No such document");
                         }
                     } else {
@@ -113,7 +125,7 @@ public class ProfileFragment extends androidx.fragment.app.Fragment {
             });
         }
 
-//        BUAT GANTI FOTO
+//      buat ganti foto profil ambil dari media store
         btnEditfotoProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,6 +135,149 @@ public class ProfileFragment extends androidx.fragment.app.Fragment {
 
             }
         });
+        buttonClickedEditFName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog = new AlertDialog.Builder(getActivity());
+                LayoutInflater inflater = getLayoutInflater();
+                dialogView = inflater.inflate(R.layout.editfnamelayout, null);
+
+                dialog.setView(dialogView);
+                dialog.setCancelable(true);
+                dialog.setIcon(R.mipmap.ic_launcher);
+                dialog.setTitle("Edit First Name");
+                DETfname = dialogView.findViewById(R.id.DETfname);
+
+                dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        fname = DETfname.getText().toString();
+
+                        if(!fname.isEmpty()){
+                            docRef.update("fName",fname);
+                            tvuname.setText("Hi, "+fname+" "+lName);
+                            tvFname.setText(fname);
+                        }
+
+                    }
+                });
+                dialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+            }
+        });
+        buttonClickedEditLName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog = new AlertDialog.Builder(getActivity());
+                LayoutInflater inflater = getLayoutInflater();
+                dialogView = inflater.inflate(R.layout.editlnamelayout, null);
+
+                dialog.setView(dialogView);
+                dialog.setCancelable(true);
+                dialog.setIcon(R.mipmap.ic_launcher);
+                dialog.setTitle("Edit Laast Name");
+                DETlname = dialogView.findViewById(R.id.DETlname);
+
+                dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        lname = DETlname.getText().toString();
+
+                        if(!lname.isEmpty()){
+                            docRef.update("lName",lname);
+                            tvuname.setText("Hi, "+fname+" "+lname);
+                            tvLname.setText(lname);
+                        }
+
+                    }
+                });
+                dialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+            }
+        });
+        buttonClickedEditNohp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog = new AlertDialog.Builder(getActivity());
+                LayoutInflater inflater = getLayoutInflater();
+                dialogView = inflater.inflate(R.layout.editnohplayout, null);
+
+                dialog.setView(dialogView);
+                dialog.setCancelable(true);
+                dialog.setIcon(R.mipmap.ic_launcher);
+                dialog.setTitle("Edit Number Phone");
+                DETnohp = dialogView.findViewById(R.id.DETnohp);
+
+                dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        nohp = DETnohp.getText().toString();
+
+                        if(!nohp.isEmpty()){
+                            docRef.update("pNumber",nohp);
+                            tvnoHp.setText(nohp);
+                        }
+
+                    }
+                });
+                dialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+            }
+        });
+        buttonClickedEditEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog = new AlertDialog.Builder(getActivity());
+                LayoutInflater inflater = getLayoutInflater();
+                dialogView = inflater.inflate(R.layout.editemaillayout, null);
+
+                dialog.setView(dialogView);
+                dialog.setCancelable(true);
+                dialog.setIcon(R.mipmap.ic_launcher);
+                dialog.setTitle("Edit Email");
+                DETemail = dialogView.findViewById(R.id.DETemail);
+
+                dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Eemail = DETemail.getText().toString();
+
+                        if(!Eemail.isEmpty()){
+                            docRef.update("email",Eemail);
+                            tvemail.setText(Eemail);
+                        }
+
+                    }
+                });
+                dialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+            }
+        });
+
 
         return view;
     }
@@ -157,47 +312,5 @@ public class ProfileFragment extends androidx.fragment.app.Fragment {
             }
         });
     }
-    public void buttonClickedEditFName(View view) {
-//        DocumentReference docRef = db.collection("users").document(user.getUid());
-//        LayoutInflater inflater = getLayoutInflater();
-//        View alertLayout = inflater.inflate(R.layout.editfnamelayout, null);
-//        final EditText etUsername = alertLayout.findViewById(R.id.et_username);
-//        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-//        alert.setTitle("Name Edit");
-//        // this is set the view from XML inside AlertDialog
-//        alert.setView(alertLayout);
-//        // disallow cancel of AlertDialog on click of back button and outside touch
-//        alert.setCancelable(false);
-//        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//            }
-//        });
-//        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                String fname = tvFname.getText().toString();
-//                String lname = tvLname.getText().toString();
-//                String nohp =  tvnoHp.getText().toString();
-//                String email = tvemail.getText().toString();
-//                Customer userinformation = new Customer(null,fname,lname,nohp,email,null);
-//                FirebaseUser user = mAuth.getCurrentUser();
-//                docRef.child(user.getUid()).setValue(userinformation);
-//                docRef.child(user.getUid()).setValue(userinformation);
-//                etUsername.onEditorAction(EditorInfo.IME_ACTION_DONE);
-//            }
-//        });
-//        AlertDialog dialog = alert.create();
-//        dialog.show();
-    }
-
-    public void buttonClickedEditLName(View view) {
-
-    }
-    public void buttonClickedEditNohp(View view) {
-
-    }
-    public void buttonClickedEditEmail(View view) {
-
-    }
+    
 }
