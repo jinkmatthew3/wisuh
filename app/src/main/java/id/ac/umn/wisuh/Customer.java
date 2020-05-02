@@ -16,4 +16,5 @@ class Customer {
         this.email = email;
         this.password = password;
     }
+
 }

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "357405258372-tb32sgkqfbmo4d2ao21471h0sjqvjju4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.ac.umn.wisuh",
+            "certificate_hash": "880bb0859dd971ab477238c6d5e49ca7c149b973"
+          }
+        },
+        {
           "client_id": "357405258372-onnu9eafcd9th63ht1p6k8p1h63n7d9u.apps.googleusercontent.com",
           "client_type": 3
         }

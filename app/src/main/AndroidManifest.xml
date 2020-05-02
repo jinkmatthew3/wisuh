@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/wisuh_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".EditProfilFragment"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +20,9 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".NearbyActivity" />
-        <activity android:name=".AboutActivity" android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".AboutActivity"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
