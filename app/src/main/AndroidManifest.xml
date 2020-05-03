@@ -19,7 +19,7 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".NearbyActivity" />
+        <activity android:name=".CarwashActivity" />
         <activity
             android:name=".AboutActivity"
             android:parentActivityName=".MainActivity" />

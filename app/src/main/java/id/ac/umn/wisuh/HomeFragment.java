@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -24,7 +23,7 @@ public class HomeFragment extends Fragment {
         btnnearby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent pindahnearby = new Intent(getActivity().getApplication(), NearbyActivity.class);
+                Intent pindahnearby = new Intent(getActivity().getApplication(), CarwashActivity.class);
                 startActivity(pindahnearby);
             }
         });

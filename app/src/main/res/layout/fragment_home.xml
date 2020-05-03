@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="-372dp"
+            android:layout_marginStart="-370dp"
             android:layout_marginTop="150dp"
             android:layout_toEndOf="@+id/btn_carwash"
             android:fontFamily="sans-serif-smallcaps"
@@ -41,6 +41,18 @@
             android:text="Carwash"
             android:textColor="#000000"
             android:textSize="15dp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-100dp"
+            android:layout_marginTop="150dp"
+            android:layout_toEndOf="@+id/btn_carwash"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="bottom"
+            android:text="see more  >"
+            android:textColor="#0000FF"
+            android:textSize="13dp"
             android:textStyle="bold" />
     </RelativeLayout>
 
@@ -55,29 +67,43 @@
         app:layout_constraintTop_toTopOf="@+id/image_btn"
         app:layout_constraintVertical_bias="0.373"
         tools:ignore="RtlCompat">
+
         <ImageButton
             android:id="@+id/btn_salon"
             android:layout_width="390dp"
             android:layout_height="110dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="92dp"
             android:background="@drawable/rectangle"
             android:padding="16dp"
             android:scaleType="fitCenter"
             android:src="@drawable/car_repair_icon" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="-372dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="178dp"
             android:layout_toEndOf="@+id/btn_salon"
             android:fontFamily="sans-serif-smallcaps"
             android:gravity="bottom"
             android:text="Car Salon"
             android:textColor="#000000"
             android:textSize="15dp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-100dp"
+            android:layout_marginTop="180dp"
+            android:layout_toEndOf="@+id/btn_salon"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="bottom"
+            android:text="see more  >"
+            android:textColor="#0000FF"
+            android:textSize="13dp"
             android:textStyle="bold" />
     </RelativeLayout>
 
@@ -105,18 +131,30 @@
             android:background="@drawable/rectangle"
             android:padding="16dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/car_washing_icon" />
+            android:src="@drawable/hot_deal" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="-372dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="148dp"
             android:layout_toEndOf="@+id/btn_deals"
             android:fontFamily="sans-serif-smallcaps"
             android:gravity="bottom"
             android:text="Deals"
             android:textColor="#000000"
             android:textSize="15dp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-100dp"
+            android:layout_marginTop="150dp"
+            android:layout_toEndOf="@+id/btn_deals"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="bottom"
+            android:text="see more  >"
+            android:textColor="#0000FF"
+            android:textSize="13dp"
             android:textStyle="bold" />
     </RelativeLayout>
 
