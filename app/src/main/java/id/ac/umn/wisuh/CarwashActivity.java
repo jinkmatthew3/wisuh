@@ -1,5 +1,6 @@
 package id.ac.umn.wisuh;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.Image;
@@ -7,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -42,6 +44,7 @@ public class CarwashActivity extends AppCompatActivity {
     //Firebase Firestore
     private FirebaseFirestore db;
     ArrayList<String> listCarwash;
+    ArrayList<String> listIdCarwash;
     ArrayList<Image> listFotoCarwash;
 
     StorageReference storageReference;
@@ -54,6 +57,7 @@ public class CarwashActivity extends AppCompatActivity {
         //bikin arraylist
         listCarwash = new ArrayList<>();
         listFotoCarwash = new ArrayList<>();
+        listIdCarwash = new ArrayList<>();
 
         //ambil database
         db = FirebaseFirestore.getInstance();
@@ -70,6 +74,7 @@ public class CarwashActivity extends AppCompatActivity {
                                 String tempString = document.getString("nama");
                                 //Log.d("testingCarwash",tempString);
                                 listCarwash.add(tempString);
+                                listIdCarwash.add(document.getId());
                                 /*storageReference = FirebaseStorage.getInstance().getReference();
                                 StorageReference profilRef = storageReference.child("carwash/"+document.getId()+"/profil.jpg");
                                 profilRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -118,6 +123,18 @@ public class CarwashActivity extends AppCompatActivity {
             imgbtn.setPadding(16,16,16,16);
             imgbtn.setScaleType(ImageButton.ScaleType.FIT_START);
             imgbtn.setImageResource(R.drawable.car_washing_icon);
+            final String idCarwash = listIdCarwash.get(i-1);
+            Log.d("testingSenen",idCarwash);
+            imgbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(CarwashActivity.this, CarwashDetailActivity.class);
+                    intent.putExtra("idCarwash",idCarwash);
+                    Log.d("testingSenen2",idCarwash);
+                    startActivity(intent);
+                    finish();
+                }
+            });
 
             TextView tview = new TextView(this);
             tview.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
