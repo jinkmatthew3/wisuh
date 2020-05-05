@@ -36,7 +36,7 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
     //simpen TextView
     private TextView tvNamaCarwash;
     private TextView tvDescCarwash;
-    private TextView tvRatingCarwash;
+    private TextView tvjamCarwash;
     private TextView tvHargaCarwash;
     private TextView tvAlamatCarwash;
 
@@ -54,7 +54,7 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
         tvDescCarwash = findViewById(R.id.tvDescCarwash);
         tvAlamatCarwash = findViewById(R.id.tvAlamatCarwash);
         tvHargaCarwash = findViewById(R.id.tvHargaCarwash);
-        tvRatingCarwash = findViewById(R.id.tvRatingCarwash);
+        tvjamCarwash = findViewById(R.id.tvjamCarwash);
 
         //ambil database
         db = FirebaseFirestore.getInstance();
@@ -124,11 +124,11 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
 
     public void isiData(String nama, String alamat, String desc, Double rating, Double harga, GeoPoint latLong){
         //masukkin masing-masing data
-        tvDescCarwash.setText("Deskripsi: "+desc);
-        tvNamaCarwash.setText("Nama: "+nama);
-        tvAlamatCarwash.setText("Alamat: "+alamat);
-        tvHargaCarwash.setText("Harga: "+harga.toString());
-        tvRatingCarwash.setText("Rating: "+rating.toString());
+        tvDescCarwash.setText(desc);
+        tvNamaCarwash.setText(nama);
+        tvAlamatCarwash.setText(alamat);
+        tvHargaCarwash.setText(harga.toString());
+        tvjamCarwash.setText(rating.toString());
         Log.d("testingSenen3",latLong.toString());
         geoPoint = latLong;
         Log.d("testingSenen3",geoPoint.toString());

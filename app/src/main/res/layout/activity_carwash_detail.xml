@@ -1,54 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="616dp"
         android:orientation="vertical"
         android:layout_weight="1.0">
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:map="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+
+        <fragment
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="616dp"
             tools:context=".CarwashDetailActivity" />
     </LinearLayout>
+
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="1.0">
-        <TextView
-            android:id="@+id/tvNamaCarwash"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.0"/>
-        <TextView
-            android:id="@+id/tvDescCarwash"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.0"/>
-        <TextView
-            android:id="@+id/tvAlamatCarwash"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.0"/>
-        <TextView
-            android:id="@+id/tvRatingCarwash"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.0"/>
-        <TextView
-            android:id="@+id/tvHargaCarwash"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.0"/>
+        android:layout_weight="1.0"
+        android:orientation="vertical">
 
+        <RelativeLayout
+            android:id="@+id/relativelayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:padding="15dp">
+
+            <ImageView
+                android:id="@+id/imgview"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/car_washing_icon" />
+
+            <TextView
+                android:id="@+id/tvNamaCarwash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/imgview"
+                android:layout_toRightOf="@+id/imgview"
+                android:fontFamily="sans-serif"
+                android:text="hahaha"
+                android:textSize="22dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDescCarwash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@+id/tvNamaCarwash"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
+                android:paddingLeft="5dp"
+                android:text="sjdadha"
+                android:textSize="22dp" />
+
+            <TextView
+                android:id="@+id/tvAlamatCarwash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvNamaCarwash"
+                android:layout_marginStart="7dp"
+                android:layout_toEndOf="@+id/imgview"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:text="djsdas" />
+
+            <TextView
+                android:id="@+id/tvjamCarwash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvAlamatCarwash"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/imgview"
+                android:paddingLeft="5dp"
+                android:text="djsdas" />
+        </RelativeLayout>
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/tvRatingCarwash"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_weight="1.0"/>-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/motoricon"
+                android:layout_width="310dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/mobilicon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/input_field"
+                android:scaleType="fitStart"
+                android:src="@drawable/car_washing_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mobilicon"
+                android:layout_marginStart="118dp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="sans-serif"
+                android:text="BIKE"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvHargaBikewash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mobilicon"
+                android:layout_marginStart="280dp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="sans-serif"
+                android:text="HARGA"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/mobilicon"
+                android:layout_width="310dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/input_field"
+                android:scaleType="fitStart"
+                android:src="@drawable/car_washing_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="118dp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="sans-serif"
+                android:text="CAR"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvHargaCarwash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="280dp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="sans-serif"
+                android:text="HARGA"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/rsvcarwash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="22dp"
+            android:text="Reserved Now  >" />
     </LinearLayout>
 </LinearLayout>

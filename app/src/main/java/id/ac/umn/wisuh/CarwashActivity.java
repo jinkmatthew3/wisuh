@@ -39,7 +39,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 
 public class CarwashActivity extends AppCompatActivity {
     LinearLayout llayout;
-    private int btni;
+    private String imgv;
 
     //Firebase Firestore
     private FirebaseFirestore db;
@@ -102,30 +102,29 @@ public class CarwashActivity extends AppCompatActivity {
 
     public void makeButton(){
         llayout = findViewById(R.id.scrollview);
-        btni = 1;
         Log.d("testingCarwash3",listCarwash.size()+" ");
         //Adding secara dynamic
         for (int i = 1; i <= listCarwash.size(); i++) {
             RelativeLayout rlayout = new RelativeLayout(this);
-            RelativeLayout.LayoutParams imageButtonParam = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.MATCH_PARENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT);
-            rlayout.setId(i);
+            LayoutParams imageButtonParam = new LayoutParams(
+                    LayoutParams.MATCH_PARENT,
+                    LayoutParams.WRAP_CONTENT);
+            rlayout.setBackgroundResource(R.drawable.input_field);
             rlayout.setPadding(20, 20, 20, 20);
 
 
-            ImageButton imgbtn = new ImageButton(this);
-            imgbtn.setLayoutParams(imageButtonParam);
-            imgbtn.setId(btni);
-            imgbtn.getLayoutParams().height = 510;
-            imgbtn.getLayoutParams().width = 1100;
-            imgbtn.setBackgroundResource(R.drawable.input_field);
-            imgbtn.setPadding(16,16,16,16);
-            imgbtn.setScaleType(ImageButton.ScaleType.FIT_START);
-            imgbtn.setImageResource(R.drawable.car_washing_icon);
+            ImageView imgview = new ImageView(this);
+            imgview.setLayoutParams(imageButtonParam);
+//            imgview.setId(Integer.parseInt("imgv"));
+            imgview.getLayoutParams().height = 410;
+            imgview.getLayoutParams().width = 1100;
+//            android:layout_weigth = "0.11"
+            imgview.setScaleType(ImageButton.ScaleType.FIT_START);
+            imgview.setImageResource(R.drawable.car_washing_icon);
+
             final String idCarwash = listIdCarwash.get(i-1);
             Log.d("testingSenen",idCarwash);
-            imgbtn.setOnClickListener(new View.OnClickListener() {
+            rlayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(CarwashActivity.this, CarwashDetailActivity.class);
@@ -137,27 +136,39 @@ public class CarwashActivity extends AppCompatActivity {
             });
 
             TextView tview = new TextView(this);
-            tview.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
-            tview.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-            tview.setLayoutParams(imageButtonParam);
+            LayoutParams txtviewparam = new LayoutParams(
+                    LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT);
+            tview.setLayoutParams(txtviewparam);
             tview.setText(listCarwash.get(i-1));
             tview.setTextSize(15);
             tview.setTypeface(Typeface.DEFAULT_BOLD);
             tview.setTypeface(Typeface.SANS_SERIF);
             tview.setTextColor(Color.BLACK);
-            tview.setGravity(Gravity.BOTTOM);
+//            txtviewparam.addRule(RelativeLayout.RIGHT_OF, Integer.parseInt(imgv));
+////            txtviewparam.addRule(RelativeLayout.END_OF, Integer.parseInt(imgv));
+////            txtviewparam.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+//            tview.setLayoutParams(txtviewparam);
 //            tview.getMarginStart
 //
-//            android:layout_marginStart="-370dp"
-//            android:layout_marginTop="150dp"
-//            android:layout_toEndOf="@+id/btn_carwash"
 
-            //TextView textView = new TextView(this);
-            //textView.setText("TextView " + String.valueOf(i));
+
+//            TextView desctv = new TextView(this);
+//            desctv.setId(Integer.parseInt("desccarwash"));
+//            LayoutParams desctvparams = new LayoutParams(
+//                    LayoutParams.WRAP_CONTENT,
+//                    LayoutParams.WRAP_CONTENT);
+//            desctvparams.addRule(RelativeLayout.RIGHT_OF, Integer.parseInt(imgv));
+//            desctvparams.addRule(RelativeLayout.END_OF, Integer.parseInt(imgv));
+//            desctvparams.addRule(RelativeLayout.BELOW, Integer.parseInt("desccarwash"));
+//<!--            android:layout_weight="1"-->
+//<!--            android:paddingLeft="5dp"/>-->
+
+
             llayout.addView(rlayout);
-            rlayout.addView(imgbtn);
+            rlayout.addView(imgview);
             rlayout.addView(tview);
-            btni = btni + 1;
+
         }
     }
 }
