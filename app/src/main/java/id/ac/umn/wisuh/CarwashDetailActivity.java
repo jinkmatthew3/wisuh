@@ -77,7 +77,7 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
                         //Log.d("testingSenen3",document.getString("nama"));
                         //tvNamaCarwash.setText(document.getString("nama"));
                         isiData(document.getString("nama"), document.getString("alamat"),document.getString("desc"),
-                                document.getDouble("rating"), document.getDouble("hargaMobil"),document.getDouble("hargaMotor"),document.getGeoPoint("latLong"));
+                                document.getDouble("jamBuka"),document.getDouble("jamTutup"), document.getDouble("hargaMobil"),document.getDouble("hargaMotor"),document.getGeoPoint("latLong"));
                         /*String email = document.getString("email");
                         String pNumber = document.getString("pNumber");
                         String fName = document.getString("fName");
@@ -89,7 +89,6 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
                         intent.putExtra("lname",lName);
                         startActivity(intent);
                         finish();*/
-
                     } else {
                         Log.d("signIn", "No such document");
                     }
@@ -124,14 +123,14 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
     }
 
 
-    public void isiData(String nama, String alamat, String desc, Double rating, Double hargaMobil, Double hargaMotor, GeoPoint latLong){
+    public void isiData(String nama, String alamat, String desc, Double jamBuka, Double jamTutup, Double hargaMobil, Double hargaMotor, GeoPoint latLong){
         //masukkin masing-masing data
         tvDescCarwash.setText(desc);
         tvNamaCarwash.setText(nama);
         tvAlamatCarwash.setText(alamat);
         tvHargaCarwash.setText(hargaMobil.toString());
         tvHargaBikewash.setText(hargaMotor.toString());
-        tvjamCarwash.setText(rating.toString());
+        tvjamCarwash.setText(jamBuka.toString() + " - " + jamTutup.toString());
         Log.d("testingSenen3",latLong.toString());
         geoPoint = latLong;
         Log.d("testingSenen3",geoPoint.toString());
