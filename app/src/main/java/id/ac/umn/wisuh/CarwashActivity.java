@@ -46,7 +46,7 @@ import androidx.core.app.ActivityCompat;
 
 public class CarwashActivity extends AppCompatActivity {
     LinearLayout llayout;
-    private String imgv;
+    private int imgv = 34;
 
     //Firebase Firestore
     private FirebaseFirestore db;
@@ -124,16 +124,15 @@ public class CarwashActivity extends AppCompatActivity {
             LayoutParams imageButtonParam = new LayoutParams(
                     LayoutParams.MATCH_PARENT,
                     LayoutParams.WRAP_CONTENT);
-            rlayout.setBackgroundResource(R.drawable.input_field);
-            rlayout.setPadding(20, 20, 20, 20);
+            rlayout.setBackgroundResource(R.drawable.rectangle_icon);
+            imageButtonParam.setMargins(0, 10, 0 , 10);
+            rlayout.setLayoutParams(imageButtonParam);
 
 
             ImageView imgview = new ImageView(this);
             imgview.setLayoutParams(imageButtonParam);
-//            imgview.setId(Integer.parseInt("imgv"));
-            imgview.getLayoutParams().height = 410;
-            imgview.getLayoutParams().width = 1100;
-//            android:layout_weigth = "0.11"
+            imgview.getLayoutParams().height = 310;
+            imgview.getLayoutParams().width = 1080;
             imgview.setScaleType(ImageButton.ScaleType.FIT_START);
             imgview.setImageResource(R.drawable.car_washing_icon);
 
@@ -154,36 +153,75 @@ public class CarwashActivity extends AppCompatActivity {
             LayoutParams txtviewparam = new LayoutParams(
                     LayoutParams.WRAP_CONTENT,
                     LayoutParams.WRAP_CONTENT);
-            tview.setLayoutParams(txtviewparam);
             tview.setText(listCarwash.get(i-1));
             tview.setTextSize(15);
             tview.setTypeface(Typeface.DEFAULT_BOLD);
             tview.setTypeface(Typeface.SANS_SERIF);
             tview.setTextColor(Color.BLACK);
-//            txtviewparam.addRule(RelativeLayout.RIGHT_OF, Integer.parseInt(imgv));
-////            txtviewparam.addRule(RelativeLayout.END_OF, Integer.parseInt(imgv));
-////            txtviewparam.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-//            tview.setLayoutParams(txtviewparam);
-//            tview.getMarginStart
-//
+            tview.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+            txtviewparam.setMargins(300, 20, 0, 0);
+            tview.setLayoutParams(txtviewparam);
 
+//          rating
+            ImageView imgrating = new ImageView(this);
+//            imgrating.setLayoutParams(imageButtonParam);
+            LayoutParams imgrtng = new LayoutParams(50, 50);
+            imgrtng.setMargins(300, 120, 0, 0);
+            imgrating.setImageResource(R.drawable.car_washing_icon);
+            imgrating.setLayoutParams(imgrtng);
 
-//            TextView desctv = new TextView(this);
-//            desctv.setId(Integer.parseInt("desccarwash"));
-//            LayoutParams desctvparams = new LayoutParams(
-//                    LayoutParams.WRAP_CONTENT,
-//                    LayoutParams.WRAP_CONTENT);
-//            desctvparams.addRule(RelativeLayout.RIGHT_OF, Integer.parseInt(imgv));
-//            desctvparams.addRule(RelativeLayout.END_OF, Integer.parseInt(imgv));
-//            desctvparams.addRule(RelativeLayout.BELOW, Integer.parseInt("desccarwash"));
-//<!--            android:layout_weight="1"-->
-//<!--            android:paddingLeft="5dp"/>-->
+            TextView ratingtext = new TextView(this);
+            LayoutParams ratingtxt = new LayoutParams(
+                    LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT);
+            ratingtext.setText("Rating");
+            ratingtext.setTextColor(Color.BLACK);
+            ratingtext.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+            ratingtxt.setMargins(360, 120, 0, 5);
+            ratingtext.setLayoutParams(ratingtxt);
+
+//            waktu
+            ImageView imgwaktu = new ImageView(this);
+//            imgrating.setLayoutParams(imageButtonParam);
+            LayoutParams imgwkt = new LayoutParams(50, 50);
+            imgwkt.setMargins(520, 120, 0, 0);
+            imgwaktu.setImageResource(R.drawable.car_repair_icon);
+            imgwaktu.setLayoutParams(imgwkt);
+
+            TextView textjam = new TextView(this);
+            LayoutParams txtj = new LayoutParams(
+                    LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT);
+            textjam.setText("Waktu");
+            textjam.setTextColor(Color.BLACK);
+            textjam.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+            txtj.setMargins(580, 120, 0, 0);
+            textjam.setLayoutParams(txtj);
+
+//            jarak
+            TextView textjarak = new TextView(this);
+            LayoutParams txtjrk = new LayoutParams(
+                    LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT);
+            textjarak.setText("1.1 KM");
+            textjarak.setTextColor(Color.BLACK);
+            textjarak.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+            txtjrk.setMargins(740, 120, 0, 0);
+            textjarak.setLayoutParams(txtjrk);
+
 
 
             llayout.addView(rlayout);
             rlayout.addView(imgview);
             rlayout.addView(tview);
-
+//            rating
+            rlayout.addView(imgrating);
+            rlayout.addView(ratingtext);
+//            jam
+            rlayout.addView(imgwaktu);
+            rlayout.addView(textjam);
+//            jarak
+            rlayout.addView(textjarak);
         }
     }
 

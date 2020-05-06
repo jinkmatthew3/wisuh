@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 public class HomeFragment extends Fragment {
     private ImageButton btnnearby;
+    private ImageButton btnsalon;
 
     @Nullable
     @Override
@@ -25,6 +26,15 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent pindahnearby = new Intent(getActivity().getApplication(), CarwashActivity.class);
                 startActivity(pindahnearby);
+            }
+        });
+
+        btnsalon = view.findViewById(R.id.btn_salon);
+        btnsalon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent pindahsalon = new Intent(getActivity().getApplication(), CarsalonActivity.class);
+                startActivity(pindahsalon);
             }
         });
 
