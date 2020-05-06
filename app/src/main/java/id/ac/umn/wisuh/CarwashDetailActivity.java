@@ -39,6 +39,7 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
     private TextView tvjamCarwash;
     private TextView tvHargaCarwash;
     private TextView tvAlamatCarwash;
+    private TextView tvHargaBikewash;
 
     private GeoPoint geoPoint;
 
@@ -55,6 +56,7 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
         tvAlamatCarwash = findViewById(R.id.tvAlamatCarwash);
         tvHargaCarwash = findViewById(R.id.tvHargaCarwash);
         tvjamCarwash = findViewById(R.id.tvjamCarwash);
+        tvHargaBikewash = findViewById(R.id.tvHargaBikewash);
 
         //ambil database
         db = FirebaseFirestore.getInstance();
@@ -75,7 +77,7 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
                         //Log.d("testingSenen3",document.getString("nama"));
                         //tvNamaCarwash.setText(document.getString("nama"));
                         isiData(document.getString("nama"), document.getString("alamat"),document.getString("desc"),
-                                document.getDouble("rating"), document.getDouble("harga"),document.getGeoPoint("latLong"));
+                                document.getDouble("rating"), document.getDouble("hargaMobil"),document.getDouble("hargaMotor"),document.getGeoPoint("latLong"));
                         /*String email = document.getString("email");
                         String pNumber = document.getString("pNumber");
                         String fName = document.getString("fName");
@@ -122,12 +124,13 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
     }
 
 
-    public void isiData(String nama, String alamat, String desc, Double rating, Double harga, GeoPoint latLong){
+    public void isiData(String nama, String alamat, String desc, Double rating, Double hargaMobil, Double hargaMotor, GeoPoint latLong){
         //masukkin masing-masing data
         tvDescCarwash.setText(desc);
         tvNamaCarwash.setText(nama);
         tvAlamatCarwash.setText(alamat);
-        tvHargaCarwash.setText(harga.toString());
+        tvHargaCarwash.setText(hargaMobil.toString());
+        tvHargaBikewash.setText(hargaMotor.toString());
         tvjamCarwash.setText(rating.toString());
         Log.d("testingSenen3",latLong.toString());
         geoPoint = latLong;
