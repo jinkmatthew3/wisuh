@@ -1,8 +1,11 @@
 package id.ac.umn.wisuh;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.location.Location;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,7 +19,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -36,6 +42,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.app.ActivityCompat;
 
 public class CarwashActivity extends AppCompatActivity {
     LinearLayout llayout;
@@ -49,6 +56,11 @@ public class CarwashActivity extends AppCompatActivity {
 
     StorageReference storageReference;
 
+    //Lokasi User buat nampilin yang terdekat
+    Location currentLocation;
+    FusedLocationProviderClient fusedLocationProvideClient;
+    private static final int REQUEST_CODE = 101;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +70,9 @@ public class CarwashActivity extends AppCompatActivity {
         listCarwash = new ArrayList<>();
         listFotoCarwash = new ArrayList<>();
         listIdCarwash = new ArrayList<>();
+
+        fusedLocationProvideClient = LocationServices.getFusedLocationProviderClient(this);
+        fetchLastLocation();
 
         //ambil database
         db = FirebaseFirestore.getInstance();
@@ -170,6 +185,24 @@ public class CarwashActivity extends AppCompatActivity {
             rlayout.addView(tview);
 
         }
+    }
+
+    private void fetchLastLocation(){
+        //minta lokasi sekarang di mana ini buat ngurutin berdasarkan jarak
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]
+                    {Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
+            return;
+        }
+        Task<Location> task = fusedLocationProvideClient.getLastLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                currentLocation = location;
+                Toast.makeText(getApplicationContext(),currentLocation.getLatitude()+" "+currentLocation.getLongitude(),Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
 
