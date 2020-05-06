@@ -3,10 +3,15 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="lorem"> Wisuh adalah bjsakdhasj das s
-    addsdjh dssadj saidja sjdlk
-    asdhasjkdsajk dsadsad
-    adasdjashdkjshd adjasdsa
-    asdjkas hdksadas </string>
     <string name="title_activity_carwash_detail">Map</string>
+    <string name="wisuh1">
+        Wisuh adalah sebuah aplikasi yang memberikan service untuk
+        menghubungkan jasa cuci kendaraan dengan customer.
+        Kami memberikan kemudahan bagi customer kami, khususnya
+        untuk customer kami yang ingin merawat kendaraan dan tidak
+        memiliki waktu untuk mencuci kendaraannya. Mitra yang bekerja
+        sama dengan kami pastinya sudah disaring dan memperoleh kepercayaan
+        serta memberikan services yang sebaik mungkin untuk memperoleh
+        kepuasan customer kami.
+    </string>
 </resources>

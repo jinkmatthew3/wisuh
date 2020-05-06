@@ -24,128 +24,85 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar">
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tv1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/yellow"
                 android:gravity="center"
                 android:text="Wisuh"
-                android:textSize="40dp"
                 android:textColor="@color/white"
-                android:background="@color/yellow"/>
+                android:textSize="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/tv2"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
+            <!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="horizontal"-->
 <!--                android:layout_below="@id/tv1"-->
-<!--                android:background="@drawable/about_a"-->
-<!--                android:backgroundTint="@color/blue2"-->
-<!--                android:gravity="center"-->
-<!--                android:text="@string/lorem"-->
-<!--                android:textSize="15dp" />-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginBottom="10dp">-->
+<!--                <TextView-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:text="What is Wisuh ?"-->
+<!--                    android:gravity="center"-->
+<!--                    android:textSize="20dp" />-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
+<!--                <TextView-->
+<!--                    android:id="@+id/tv2"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginStart="20dp"-->
+<!--                    android:background="@drawable/about_a"-->
+<!--                    android:backgroundTint="@color/blue2"-->
+<!--                    android:padding="10dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="@string/wisuh1"-->
+<!--                    android:textSize="15dp" />-->
+<!--            </LinearLayout>-->
+
+
+            <!--   viewPager-->
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="360dp"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_below="@id/tv1"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp">
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:text="What is Wisuh ?"
-                    android:gravity="center"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:id="@+id/tv2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="20dp"
-                    android:background="@drawable/about_a"
-                    android:backgroundTint="@color/blue2"
-                    android:padding="10dp"
-                    android:maxLines="3"
-                    android:gravity="center"
-                    android:text="@string/lorem"
-                    android:textSize="15dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_below="@id/tv2"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp">
-                <TextView
-                    android:id="@+id/tv3"
-                    android:layout_width="290dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="20dp"
-                    android:background="@drawable/about_b"
-                    android:backgroundTint="@color/blue2"
-                    android:padding="10dp"
-                    android:maxLines="3"
-                    android:gravity="center"
-                    android:text="@string/lorem"
-                    android:textSize="15dp"/>
-
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:text="Our\nValue"
-                    android:gravity="center"
-                    android:textSize="20dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_below="@id/tv3"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp">
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:text="What is Wisuh ?"
-                    android:gravity="center"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:id="@+id/tv4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="20dp"
-                    android:background="@drawable/about_a"
-                    android:backgroundTint="@color/blue2"
-                    android:padding="10dp"
-                    android:maxLines="3"
-                    android:gravity="center"
-                    android:text="@string/lorem"
-                    android:textSize="15dp" />
-            </LinearLayout>
+                android:layout_margin="25dp"
+                android:background="@drawable/about_a"
+                android:backgroundTint="@color/blue2"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/wisuh1"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvTeam"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv1" />
 
             <TextView
                 android:id="@+id/tvTeam"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv2"
+                android:layout_marginTop="20dp"
+                android:background="@color/yellow"
                 android:gravity="center"
                 android:text="Meet The Team"
-                android:textSize="40dp"
                 android:textColor="@color/white"
-                android:background="@color/yellow"/>
+                android:textSize="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv2" />
 
-
-            <!--   viewPager-->
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
@@ -153,9 +110,13 @@
                 android:layout_below="@+id/tvTeam"
                 android:clipToPadding="false"
                 android:foregroundGravity="center"
-                android:overScrollMode="never" />
+                android:overScrollMode="never"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTeam" />
             <!--   end of viewPager-->
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 </RelativeLayout>
