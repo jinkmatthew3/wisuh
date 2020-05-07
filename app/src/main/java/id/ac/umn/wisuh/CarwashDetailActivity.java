@@ -1,11 +1,15 @@
 package id.ac.umn.wisuh;
 
 import androidx.annotation.NonNull;
+import android.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -49,6 +53,20 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carwash_detail);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
+        //        toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_blue_24dp);
+        toolbar.setTitle("Details");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CarwashDetailActivity.this, CarwashActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+//        end of toolbar code
 
         //ambil sesuaiid
         tvNamaCarwash = findViewById(R.id.tvNamaCarwash);
