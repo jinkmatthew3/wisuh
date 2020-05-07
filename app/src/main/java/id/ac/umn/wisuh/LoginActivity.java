@@ -130,11 +130,16 @@ public class LoginActivity extends AppCompatActivity {
                             String pNumber = document.getString("pNumber");
                             String fName = document.getString("fName");
                             String lName = document.getString("lName");
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            intent.putExtra("email",email);
-                            intent.putExtra("nomorHp",pNumber);
-                            intent.putExtra("fname",fName);
-                            intent.putExtra("lname",lName);
+                            Intent intent;
+                            if(email="admin@wisuh.com"){
+                                intent = new Intent(LoginActivity.this, AdminActivity.class);
+                            }else{
+                                intent = new Intent(LoginActivity.this, MainActivity.class);
+                                intent.putExtra("email",email);
+                                intent.putExtra("nomorHp",pNumber);
+                                intent.putExtra("fname",fName);
+                                intent.putExtra("lname",lName);
+                            }
                             startActivity(intent);
                             finish();
                         } else {
@@ -237,11 +242,16 @@ public class LoginActivity extends AppCompatActivity {
                                     String pNumber = document.getString("pNumber");
                                     String fName = document.getString("fName");
                                     String lName = document.getString("lName");
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    intent.putExtra("email",email);
-                                    intent.putExtra("nomorHp",pNumber);
-                                    intent.putExtra("fname",fName);
-                                    intent.putExtra("lname",lName);
+                                    Intent intent;
+                                    if(email=="admin@wisuh.com"){
+                                        intent = new Intent(LoginActivity.this, AdminActivity.class);
+                                    }else {
+                                        intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        intent.putExtra("email",email);
+                                        intent.putExtra("nomorHp",pNumber);
+                                        intent.putExtra("fname",fName);
+                                        intent.putExtra("lname",lName);
+                                    }
                                     startActivity(intent);
                                     finish();
                                 } else {

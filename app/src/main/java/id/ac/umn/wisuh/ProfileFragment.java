@@ -85,7 +85,7 @@ public class ProfileFragment extends androidx.fragment.app.Fragment {
 
         final DocumentReference docRef = db.collection("users").document(user.getUid());
 
-//        buat ambil data foto progil dari firebase
+//        buat ambil data foto profil dari firebase
         storageReference = FirebaseStorage.getInstance().getReference();
         StorageReference profilRef = storageReference.child("users/"+user.getUid()+"/profil.jpg");
         profilRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
