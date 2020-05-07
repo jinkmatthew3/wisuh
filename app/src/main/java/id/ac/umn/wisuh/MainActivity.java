@@ -93,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
 
         } else if ( id == R.id.settingMenu) {
             //ini isi intent ke setting
+            Intent intentSettings = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(intentSettings);
+
         } else if ( id == R.id.logoutMenu) {
             //ini isi intent ke logout menu login
             FirebaseAuth.getInstance().signOut();

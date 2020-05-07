@@ -4,7 +4,7 @@
         android:title="About"
         android:id="@+id/aboutMenu" />
     <item
-        android:title="Setting"
+        android:title="Settings"
         android:id="@+id/settingMenu" />
     <item
         android:title="Log Out"
