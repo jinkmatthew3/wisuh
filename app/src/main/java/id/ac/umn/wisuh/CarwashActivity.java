@@ -53,6 +53,7 @@ public class CarwashActivity extends AppCompatActivity {
     ArrayList<String> listCarwash;
     ArrayList<String> listIdCarwash;
     ArrayList<Image> listFotoCarwash;
+    ArrayList<Double> listRatingCarwash;
 
     StorageReference storageReference;
 
@@ -70,6 +71,7 @@ public class CarwashActivity extends AppCompatActivity {
         listCarwash = new ArrayList<>();
         listFotoCarwash = new ArrayList<>();
         listIdCarwash = new ArrayList<>();
+        listRatingCarwash = new ArrayList<>();
 
         fusedLocationProvideClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLastLocation();
@@ -87,7 +89,9 @@ public class CarwashActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 //Log.d("testingCarwash", document.getId() + " => " + document.getData());
                                 String tempString = document.getString("nama");
+                                Double tempRating = document.getDouble("rating");
                                 //Log.d("testingCarwash",tempString);
+                                listRatingCarwash.add(tempRating);
                                 listCarwash.add(tempString);
                                 listIdCarwash.add(document.getId());
                                 /*storageReference = FirebaseStorage.getInstance().getReference();
@@ -174,7 +178,7 @@ public class CarwashActivity extends AppCompatActivity {
             LayoutParams ratingtxt = new LayoutParams(
                     LayoutParams.WRAP_CONTENT,
                     LayoutParams.WRAP_CONTENT);
-            ratingtext.setText("Rating");
+            ratingtext.setText("Rating : " + listRatingCarwash.get(i-1));
             ratingtext.setTextColor(Color.BLACK);
             ratingtext.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
             ratingtxt.setMargins(360, 120, 0, 5);
