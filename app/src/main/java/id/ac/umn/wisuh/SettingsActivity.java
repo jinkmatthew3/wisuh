@@ -52,6 +52,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        //Check log
         if(switch01.isChecked()){
             Log.i("Notif ", "on");
         } else {
