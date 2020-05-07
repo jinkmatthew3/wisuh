@@ -72,6 +72,7 @@ public class CarsalonActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_blue_24dp);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Car Salon");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

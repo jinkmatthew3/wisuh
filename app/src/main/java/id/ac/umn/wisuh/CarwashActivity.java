@@ -73,6 +73,7 @@ public class CarwashActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_blue_24dp);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Car Wash");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
