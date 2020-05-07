@@ -95,9 +95,7 @@ public class CarwashActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         //ambil data dari koleksi Carwash firestore
-        db.collection("Carwash")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Carwash").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {

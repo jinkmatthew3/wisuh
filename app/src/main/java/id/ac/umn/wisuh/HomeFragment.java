@@ -38,9 +38,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
-
         tvSaldo = view.findViewById(R.id.tvSaldo);
-
         btnnearby = view.findViewById(R.id.btn_carwash);
         btnnearby.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +64,7 @@ public class HomeFragment extends Fragment {
         final DocumentReference docRef = db.collection("users").document(user.getUid());
 
         if(user != null){
-//            docRef = db.collection("users").document(user.getUid());
+//          docRef = db.collection("users").document(user.getUid());
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -74,9 +72,8 @@ public class HomeFragment extends Fragment {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             Double saldo = document.getDouble("saldo");
-                            tvSaldo.setText("Rp. " + saldo);
+                            tvSaldo.setText("IDR. " + saldo);
                         }
-//                        TINGGAL DI BENERIN LOGHNYA
                         else {
                             Log.d("signIn", "No such document");
                         }
@@ -86,8 +83,6 @@ public class HomeFragment extends Fragment {
                 }
             });
         }
-
         return view;
     }
-
 }

@@ -131,9 +131,9 @@ public class LoginActivity extends AppCompatActivity {
                             String fName = document.getString("fName");
                             String lName = document.getString("lName");
                             Intent intent;
-                            if(email="admin@wisuh.com"){
+                            if(email.toLowerCase().equals("admin@wisuh.com")){
                                 intent = new Intent(LoginActivity.this, AdminActivity.class);
-                            }else{
+                            }else {
                                 intent = new Intent(LoginActivity.this, MainActivity.class);
                                 intent.putExtra("email",email);
                                 intent.putExtra("nomorHp",pNumber);
@@ -222,8 +222,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void signIn(String Email, String Password){
-        mAuth.signInWithEmailAndPassword(Email, Password)
-        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(Email, Password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
@@ -243,7 +242,7 @@ public class LoginActivity extends AppCompatActivity {
                                     String fName = document.getString("fName");
                                     String lName = document.getString("lName");
                                     Intent intent;
-                                    if(email=="admin@wisuh.com"){
+                                    if(email.toLowerCase().equals("admin@wisuh.com")){
                                         intent = new Intent(LoginActivity.this, AdminActivity.class);
                                     }else {
                                         intent = new Intent(LoginActivity.this, MainActivity.class);
