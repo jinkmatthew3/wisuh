@@ -41,11 +41,13 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.app.ActivityCompat;
 
 public class CarwashActivity extends AppCompatActivity {
     LinearLayout llayout;
+    Toolbar toolbar;
     private int imgv = 34;
 
     //Firebase Firestore
@@ -66,6 +68,18 @@ public class CarwashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carwash);
+
+//        toolbar
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_blue_24dp);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+//        end of toolbar code
 
         //bikin arraylist
         listCarwash = new ArrayList<>();
