@@ -17,4 +17,5 @@
     <color name="color3">#796e25</color>
     <color name="color4">#59717c</color>
     <color name="color5">#9188A2</color>
+    <color name="Transparent"> #00000000</color>
 </resources>
