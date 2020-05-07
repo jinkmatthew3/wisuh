@@ -238,7 +238,7 @@ public class CarwashActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Location location) {
                 currentLocation = location;
-                Toast.makeText(getApplicationContext(),currentLocation.getLatitude()+" "+currentLocation.getLongitude(),Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(),currentLocation.getLatitude()+" "+currentLocation.getLongitude(),Toast.LENGTH_LONG).show();
             }
         });
     }

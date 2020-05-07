@@ -22,7 +22,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
-public class CarwashDetailActivity extends FragmentActivity implements OnMapReadyCallback {
+public class CarsalonDetailActivity extends FragmentActivity implements OnMapReadyCallback {
 
     // Googlemap
     private GoogleMap mMap;
@@ -67,7 +67,7 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
         Log.d("testingSenen2",idCarwash);
 
         //ambil data-datanya dari database
-        DocumentReference docRef = db.collection("Carwash").document(idCarwash);
+        DocumentReference docRef = db.collection("salon").document(idCarwash);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

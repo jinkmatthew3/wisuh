@@ -78,7 +78,7 @@ public class CarsalonActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         //ambil data dari koleksi Carwash firestore
-        db.collection("Carwash")
+        db.collection("salon")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -142,7 +142,7 @@ public class CarsalonActivity extends AppCompatActivity {
             rlayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(CarsalonActivity.this, CarwashDetailActivity.class);
+                    Intent intent = new Intent(CarsalonActivity.this, CarsalonDetailActivity.class);
                     intent.putExtra("idCarwash",idCarwash);
                     Log.d("testingSenen2",idCarwash);
                     startActivity(intent);
@@ -239,7 +239,7 @@ public class CarsalonActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Location location) {
                 currentLocation = location;
-                Toast.makeText(getApplicationContext(),currentLocation.getLatitude()+" "+currentLocation.getLongitude(),Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(),currentLocation.getLatitude()+" "+currentLocation.getLongitude(),Toast.LENGTH_LONG).show();
             }
         });
     }
