@@ -56,35 +56,38 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        sqliteHelper = new SqliteHelper(this);
-        initRegister();
-        initViews();
+        setContentView(R.layout.activity_splashscreen);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-
+        mAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
 
-        //set click event of login button
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        if(mAuth.getCurrentUser() == null) {
+            setContentView(R.layout.activity_login);
+            sqliteHelper = new SqliteHelper(this);
+            initRegister();
+            initViews();
 
-                //Check user input is correct or not
-                if (validate()) {
+            //set click event of login button
+            btnLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                    //Get values from EditText fields
-                    String Email = etEmail.getText().toString();
-                    String Password = etPassword.getText().toString();
+                    //Check user input is correct or not
+                    if (validate()) {
 
-                    //loading progress Bar
-                    progressBar.setVisibility(View.VISIBLE);
+                        //Get values from EditText fields
+                        String Email = etEmail.getText().toString();
+                        String Password = etPassword.getText().toString();
 
-                    //Authenticate user
-                    Customer currentUser = sqliteHelper.Authenticate(new Customer(null, null,null,null, Email, Password));
+                        //loading progress Bar
+                        progressBar.setVisibility(View.VISIBLE);
 
-                    signIn(Email,Password);
+                        //Authenticate user
+                        Customer currentUser = sqliteHelper.Authenticate(new Customer(null, null,null,null, Email, Password));
+
+                        signIn(Email,Password);
 
                     /*//Check Authentication is successful or not
                     if (currentUser != null) {
@@ -103,9 +106,10 @@ public class LoginActivity extends AppCompatActivity {
                         //User Logged in Failed
                         Snackbar.make(btnLogin, "Incorrect Email or Password!", Snackbar.LENGTH_LONG).show();
                     }*/
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     @Override

@@ -41,4 +41,14 @@
         android:layout_below="@+id/tvTitle"
         android:text="Notification Push"/>
 
+    <Switch
+        android:id="@+id/switch02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@+id/switch01"
+        android:text="Sound"/>
+
 </RelativeLayout>
