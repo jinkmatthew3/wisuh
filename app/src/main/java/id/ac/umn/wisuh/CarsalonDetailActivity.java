@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -18,11 +21,19 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CarsalonDetailActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -42,8 +53,18 @@ public class CarsalonDetailActivity extends FragmentActivity implements OnMapRea
     private TextView tvHargaCarwash;
     private TextView tvAlamatCarwash;
     private TextView tvHargaBikewash;
+    private Button rsvCarwash;
 
     private GeoPoint geoPoint;
+
+    //Radio Button dan Radio Group
+    private RadioGroup rgMobilMotor;
+    private RadioButton btnMobil;
+    private RadioButton btnMotor;
+
+    //Firebase Authentication
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
 
     @Override
@@ -51,6 +72,11 @@ public class CarsalonDetailActivity extends FragmentActivity implements OnMapRea
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carwash_detail);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
 
         //        toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -73,6 +99,10 @@ public class CarsalonDetailActivity extends FragmentActivity implements OnMapRea
         tvHargaCarwash = findViewById(R.id.tvHargaCarwash);
         tvjamCarwash = findViewById(R.id.tvjamCarwash);
         tvHargaBikewash = findViewById(R.id.tvHargaBikewash);
+        rsvCarwash = findViewById(R.id.rsvcarwash);
+        rgMobilMotor = findViewById(R.id.rgMobilMotor);
+        btnMobil = findViewById(R.id.btnmobil);
+        btnMotor = findViewById(R.id.btnmotor);
 
         //ambil database
         db = FirebaseFirestore.getInstance();
@@ -81,6 +111,85 @@ public class CarsalonDetailActivity extends FragmentActivity implements OnMapRea
         Intent intent = getIntent();
         idCarwash = intent.getStringExtra("idCarwash");
         Log.d("testingSenen2",idCarwash);
+
+        rsvCarwash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selected_id = rgMobilMotor.getCheckedRadioButtonId();
+
+                // liat mana yang di checked
+                if(selected_id == btnMobil.getId()){
+
+                    //Masukkin ke database
+                    Map<String, Object> dataPencucian = new HashMap<>();
+                    dataPencucian.put("idCarwash",idCarwash);
+                    dataPencucian.put("idUser",user.getUid());
+                    dataPencucian.put("status","ongoing");
+                    dataPencucian.put("tipeCarwash","Carwash");
+                    dataPencucian.put("tipeKendaraan","Mobil");
+                    dataPencucian.put("waktuMulai", Timestamp.now());
+                    dataPencucian.put("waktuSelesai",Timestamp.now());
+
+                    db.collection("pencucian")
+                            .add(dataPencucian)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    //Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                    Intent intent;
+                                    intent = new Intent(CarsalonDetailActivity.this, OngoingActivity.class);
+                                    intent.putExtra("idCarwash",idCarwash);
+                                    intent.putExtra("tipeKendaraan","mobil");
+                                    intent.putExtra("tipeCarwash","Salon");
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("GagalMasukkin Document", "Error adding document", e);
+                                }
+                            });
+                    Log.d("testingJumat","kamu milih mobil");
+                }
+                else{
+
+                    //Masukkin ke database
+                    Map<String, Object> dataPencucian = new HashMap<>();
+                    dataPencucian.put("idCarwash",idCarwash);
+                    dataPencucian.put("idUser",user.getUid());
+                    dataPencucian.put("status","ongoing");
+                    dataPencucian.put("tipeCarwash","Carwash");
+                    dataPencucian.put("tipeKendaraan","Motor");
+                    dataPencucian.put("waktuMulai",Timestamp.now());
+                    dataPencucian.put("waktuSelesai",Timestamp.now());
+
+                    db.collection("pencucian")
+                            .add(dataPencucian)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    //Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                    Intent intent;
+                                    intent = new Intent(CarsalonDetailActivity.this, OngoingActivity.class);
+                                    intent.putExtra("idCarwash",idCarwash);
+                                    intent.putExtra("tipeKendaraan","motor");
+                                    intent.putExtra("tipeCarwash","Salon");
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("GagalMasukkin Document", "Error adding document", e);
+                                }
+                            });
+                    Log.d("testingJumat","kamu milih motor");
+                }
+            }
+        });
 
         //ambil data-datanya dari database
         DocumentReference docRef = db.collection("salon").document(idCarwash);

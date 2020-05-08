@@ -153,11 +153,41 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
                                     Log.w("GagalMasukkin Document", "Error adding document", e);
                                 }
                             });
-
-
                     Log.d("testingJumat","kamu milih mobil");
                 }
                 else{
+
+                    //Masukkin ke database
+                    Map<String, Object> dataPencucian = new HashMap<>();
+                    dataPencucian.put("idCarwash",idCarwash);
+                    dataPencucian.put("idUser",user.getUid());
+                    dataPencucian.put("status","ongoing");
+                    dataPencucian.put("tipeCarwash","Carwash");
+                    dataPencucian.put("tipeKendaraan","Motor");
+                    dataPencucian.put("waktuMulai",Timestamp.now());
+                    dataPencucian.put("waktuSelesai",Timestamp.now());
+
+                    db.collection("pencucian")
+                            .add(dataPencucian)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    //Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                    Intent intent;
+                                    intent = new Intent(CarwashDetailActivity.this, OngoingActivity.class);
+                                    intent.putExtra("idCarwash",idCarwash);
+                                    intent.putExtra("tipeKendaraan","motor");
+                                    intent.putExtra("tipeCarwash","Carwash");
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("GagalMasukkin Document", "Error adding document", e);
+                                }
+                            });
                     Log.d("testingJumat","kamu milih motor");
                 }
             }
