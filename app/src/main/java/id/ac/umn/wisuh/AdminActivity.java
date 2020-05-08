@@ -3,8 +3,11 @@ package id.ac.umn.wisuh;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -25,10 +29,14 @@ public class AdminActivity extends AppCompatActivity {
     Button btnConfirm;
     private FirebaseFirestore db;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         etEmailUser = (EditText) findViewById(R.id.etEmailUser);
         etNominal = (EditText) findViewById(R.id.etNominal);
         btnConfirm = (Button) findViewById(R.id.btnConfirm);
@@ -66,10 +74,25 @@ public class AdminActivity extends AppCompatActivity {
 
 
             }
-            public void updateSaldo(String email, String saldo){
-                final EditText etNominal = (EditText) findViewById(R.id.etNominal);
-            }
+//            public void updateSaldo(String email, String saldo){
+//                final EditText etNominal = (EditText) findViewById(R.id.etNominal);
+//            }
         });
+    }
+    public boolean onCreateOptionsMenu(Menu menu_logout) {
+        getMenuInflater().inflate(R.menu.menu_logout,menu_logout);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        if ( id == R.id.logout_menu) {
+            //ini isi intent ke logout menu login
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(AdminActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        return true;
     }
 }
 
