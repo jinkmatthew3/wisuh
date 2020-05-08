@@ -44,6 +44,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent pindahnearby = new Intent(getActivity().getApplication(), CarwashActivity.class);
+                pindahnearby.putExtra("tipeCarwash","Carwash");
                 startActivity(pindahnearby);
             }
         });
@@ -52,7 +53,8 @@ public class HomeFragment extends Fragment {
         btnsalon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent pindahsalon = new Intent(getActivity().getApplication(), CarsalonActivity.class);
+                Intent pindahsalon = new Intent(getActivity().getApplication(), CarwashActivity.class);
+                pindahsalon.putExtra("tipeCarwash","Salon");
                 startActivity(pindahsalon);
             }
         });

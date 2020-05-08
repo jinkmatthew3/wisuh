@@ -10,6 +10,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -20,11 +23,19 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CarwashDetailActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -44,8 +55,18 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
     private TextView tvHargaCarwash;
     private TextView tvAlamatCarwash;
     private TextView tvHargaBikewash;
+    private Button rsvCarwash;
 
     private GeoPoint geoPoint;
+
+    //Radio Button dan Radio Group
+    private RadioGroup rgMobilMotor;
+    private RadioButton btnMobil;
+    private RadioButton btnMotor;
+
+    //Firebase Authentication
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
 
     @Override
@@ -53,6 +74,11 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carwash_detail);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
 
         //        toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -75,6 +101,10 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
         tvHargaCarwash = findViewById(R.id.tvHargaCarwash);
         tvjamCarwash = findViewById(R.id.tvjamCarwash);
         tvHargaBikewash = findViewById(R.id.tvHargaBikewash);
+        rsvCarwash = findViewById(R.id.rsvcarwash);
+        rgMobilMotor = findViewById(R.id.rgMobilMotor);
+        btnMobil = findViewById(R.id.btnmobil);
+        btnMotor = findViewById(R.id.btnmotor);
 
         //ambil database
         db = FirebaseFirestore.getInstance();
@@ -83,6 +113,55 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
         Intent intent = getIntent();
         idCarwash = intent.getStringExtra("idCarwash");
         Log.d("testingSenen2",idCarwash);
+
+        rsvCarwash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selected_id = rgMobilMotor.getCheckedRadioButtonId();
+
+                // liat mana yang di checked
+                if(selected_id == btnMobil.getId()){
+
+                    //Masukkin ke database
+                    Map<String, Object> dataPencucian = new HashMap<>();
+                    dataPencucian.put("idCarwash",idCarwash);
+                    dataPencucian.put("idUser",user.getUid());
+                    dataPencucian.put("status","ongoing");
+                    dataPencucian.put("tipeCarwash","Carwash");
+                    dataPencucian.put("tipeKendaraan","Mobil");
+                    dataPencucian.put("waktuMulai",Timestamp.now());
+                    dataPencucian.put("waktuSelesai",Timestamp.now());
+
+                    db.collection("pencucian")
+                            .add(dataPencucian)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    //Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                    Intent intent;
+                                    intent = new Intent(CarwashDetailActivity.this, OngoingActivity.class);
+                                    intent.putExtra("idCarwash",idCarwash);
+                                    intent.putExtra("tipeKendaraan","mobil");
+                                    intent.putExtra("tipeCarwash","Carwash");
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("GagalMasukkin Document", "Error adding document", e);
+                                }
+                            });
+
+
+                    Log.d("testingJumat","kamu milih mobil");
+                }
+                else{
+                    Log.d("testingJumat","kamu milih motor");
+                }
+            }
+        });
 
         //ambil data-datanya dari database
         DocumentReference docRef = db.collection("Carwash").document(idCarwash);
@@ -96,17 +175,7 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
                         //tvNamaCarwash.setText(document.getString("nama"));
                         isiData(document.getString("nama"), document.getString("alamat"),
                                 document.getDouble("jamBuka"),document.getDouble("jamTutup"), document.getDouble("hargaMobil"),document.getDouble("hargaMotor"),document.getGeoPoint("latLong"));
-                        /*String email = document.getString("email");
-                        String pNumber = document.getString("pNumber");
-                        String fName = document.getString("fName");
-                        String lName = document.getString("lName");*/
-                        /*Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.putExtra("email",email);
-                        intent.putExtra("nomorHp",pNumber);
-                        intent.putExtra("fname",fName);
-                        intent.putExtra("lname",lName);
-                        startActivity(intent);
-                        finish();*/
+
                     } else {
                         Log.d("signIn", "No such document");
                     }
@@ -118,16 +187,6 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
 
     }
 
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;

@@ -14,4 +14,6 @@
         serta memberikan services yang sebaik mungkin untuk memperoleh
         kepuasan customer kami.
     </string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_ongoing">Map</string>
 </resources>

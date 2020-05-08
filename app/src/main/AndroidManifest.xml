@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="id.ac.umn.wisuh">
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -17,9 +18,7 @@
         android:roundIcon="@mipmap/wisuh_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdminActivity">
-        </activity>
-        <activity android:name=".CarsalonDetailActivity" />
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -33,6 +32,11 @@
             android:value="@string/google_maps_key" />
 
         <activity
+            android:name=".OngoingActivity"
+            android:label="@string/title_activity_ongoing"></activity>
+        <activity android:name=".AdminActivity" />
+        <activity android:name=".CarsalonDetailActivity" />
+        <activity
             android:name=".CarwashDetailActivity"
             android:label="@string/title_activity_carwash_detail" />
         <activity android:name=".EditProfilFragment" />
@@ -45,7 +49,7 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".CarwashActivity"/>
+        <activity android:name=".CarwashActivity" />
         <activity android:name=".CarsalonActivity" />
         <activity
             android:name=".AboutActivity"

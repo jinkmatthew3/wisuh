@@ -215,7 +215,7 @@ public class RegisterActivity extends AppCompatActivity {
                         users.put("pNumber", PhoneNum);
                         users.put("fName", FName);
                         users.put("lName", LName);
-                        users.put("saldo", 100000);
+                        users.put("saldo",100000.0);
 
                         db.collection("users").document(user.getUid())
                             .set(users)
