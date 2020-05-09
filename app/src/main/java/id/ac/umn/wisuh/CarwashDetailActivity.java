@@ -143,6 +143,7 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
                                     intent.putExtra("idCarwash",idCarwash);
                                     intent.putExtra("tipeKendaraan","mobil");
                                     intent.putExtra("tipeCarwash","Carwash");
+                                    intent.putExtra("idPesanan",documentReference.getId());
                                     startActivity(intent);
                                     finish();
                                 }
@@ -178,6 +179,7 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
                                     intent.putExtra("idCarwash",idCarwash);
                                     intent.putExtra("tipeKendaraan","motor");
                                     intent.putExtra("tipeCarwash","Carwash");
+                                    intent.putExtra("idPesanan",documentReference.getId());
                                     startActivity(intent);
                                     finish();
                                 }

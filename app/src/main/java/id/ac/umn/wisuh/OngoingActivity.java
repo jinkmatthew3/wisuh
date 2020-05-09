@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -15,11 +17,18 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.firestore.model.Values;
 
 public class OngoingActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -27,17 +36,23 @@ public class OngoingActivity extends FragmentActivity implements OnMapReadyCallb
     private TextView tvAlamatCarwash;
     private TextView tvHargaCarwash;
     private TextView tvStatus;
+    private Button btnSelesai;
 
     private GeoPoint geoPoint;
 
     private String idCarwash;
     private String tipeKendaraan;
     private String tipeCarwash;
+    private String idPesanan;
 
     private GoogleMap mMap;
 
     //Firebase Firestore
     private FirebaseFirestore db;
+
+    //Firebase Authentication
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +62,27 @@ public class OngoingActivity extends FragmentActivity implements OnMapReadyCallb
         //ambil database
         db = FirebaseFirestore.getInstance();
 
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
+
         tvNamaCarwash = findViewById(R.id.tvNamaCarwash);
         tvAlamatCarwash = findViewById(R.id.tvAlamatCarwash);
         tvHargaCarwash = findViewById(R.id.tvHargaCarwash);
         tvStatus = findViewById(R.id.tvStatus);
+        btnSelesai = findViewById(R.id.btnSelesai);
 
         //Buat dapetin dari intent CarwashDetailActivity
         Intent intent = getIntent();
         idCarwash = intent.getStringExtra("idCarwash");
         tipeKendaraan = intent.getStringExtra("tipeKendaraan");
         tipeCarwash = intent.getStringExtra("tipeCarwash");
+        idPesanan = intent.getStringExtra("idPesanan");
         Log.d("idCarwash",idCarwash);
         Log.d("tipeKendaraan",tipeKendaraan);
         Log.d("tipeCarwash",tipeCarwash);
+        Log.d("idPesanan",idPesanan);
 
         if(tipeCarwash.equals("Carwash")){
             if(tipeKendaraan.equals("mobil")){
@@ -158,6 +181,50 @@ public class OngoingActivity extends FragmentActivity implements OnMapReadyCallb
                 });
             }
         }
+
+
+        btnSelesai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DocumentReference updateCarwash;
+
+                updateCarwash = db.collection("pencucian").document(idPesanan);
+
+                // update status dan waktuSelesai
+                updateCarwash.update("status","completed","waktuSelesai", Timestamp.now()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("updateSukses","Update dokumen sukses");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("updateFail","Update dokumen sukses");
+                    }
+                });
+
+                DocumentReference updateSaldo;
+
+                updateSaldo = db.collection("users").document(user.getUid());
+                updateSaldo.update("saldo", FieldValue.increment(-Double.valueOf((String)tvHargaCarwash.getText()))).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("updateSukses","Update dokumen sukses");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("updateFail","Update dokumen sukses");
+                    }
+                });
+
+                Intent intent;
+                intent = new Intent(OngoingActivity.this, CheckoutActivity.class);
+                intent.putExtra("idPesanan",idPesanan);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override

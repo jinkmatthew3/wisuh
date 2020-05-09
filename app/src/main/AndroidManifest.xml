@@ -31,7 +31,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
+        <activity android:name=".CheckoutActivity"></activity>
         <activity
             android:name=".OngoingActivity"
             android:label="@string/title_activity_ongoing"></activity>
