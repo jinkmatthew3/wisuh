@@ -67,11 +67,11 @@
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="45dp"
         android:layout_marginBottom="40dp"
         android:background="@drawable/button"
-        android:fontFamily="@font/reguler"
+        android:fontFamily="@font/chelsea_market"
         android:text="Log In"
         android:textColor="@color/white"
         android:textSize="15sp"

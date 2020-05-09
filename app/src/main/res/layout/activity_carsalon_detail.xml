@@ -39,6 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.0"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -50,8 +51,8 @@
 
             <ImageView
                 android:id="@+id/imgview"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:background="@drawable/car_washing_icon" />
 
             <TextView
@@ -59,10 +60,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@+id/imgview"
                 android:layout_toRightOf="@+id/imgview"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/aclonica"
                 android:text="hahaha"
                 android:textSize="22dp"
                 android:textStyle="bold" />
@@ -74,9 +76,9 @@
                 android:layout_below="@+id/tvNamaCarwash"
                 android:layout_marginStart="7dp"
                 android:layout_toEndOf="@+id/imgview"
-                android:layout_weight="1"
                 android:paddingLeft="5dp"
-                android:text="djsdas" />
+                android:text="djsdas"
+                android:fontFamily="@font/chelsea_market"/>
 
             <TextView
                 android:id="@+id/tvjamCarwash"
@@ -87,6 +89,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_toEndOf="@+id/imgview"
                 android:paddingLeft="5dp"
+                android:fontFamily="@font/caveat_brush"
                 android:text="djsdas" />
         </RelativeLayout>
 
@@ -97,50 +100,54 @@
         <!--            android:layout_weight="1.0"/>-->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="180dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp">
             <RadioGroup
+                android:id="@+id/rgMobilMotor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <RadioButton
                     android:id="@+id/btnmobil"
-                    android:layout_width="310dp"
-                    android:layout_height="50dp"
+                    android:layout_width="350dp"
+                    android:layout_height="70dp"
                     android:layout_marginTop="15dp"
                     android:button="@null"
-                    android:background="@drawable/input_field"
+                    android:background="@drawable/input_field4"
                     android:layout_gravity="center"
                     android:gravity="center">
                 </RadioButton>
 
                 <RadioButton
                     android:id="@+id/btnmotor"
-                    android:layout_width="310dp"
-                    android:layout_height="50dp"
+                    android:layout_width="350dp"
+                    android:layout_height="70dp"
                     android:gravity="center"
                     android:layout_marginTop="15dp"
-                    android:background="@drawable/input_field"
+                    android:background="@drawable/input_field4"
                     android:layout_gravity="center"
                     android:button="@null"/>
             </RadioGroup>
             <ImageView
                 android:id="@+id/motoricon"
-                android:layout_width="300dp"
-                android:layout_height="50dp"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:layout_below="@+id/mobilicon"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="26dp"
+                android:layout_marginStart="35dp"
                 android:scaleType="fitStart"
-                android:paddingLeft="10dp"
-                android:src="@drawable/car_repair_icon" />
+                android:paddingLeft="1dp"
+                android:src="@drawable/bikee" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/mobilicon"
                 android:layout_marginStart="118dp"
-                android:layout_marginTop="25dp"
-                android:fontFamily="sans-serif"
+                android:layout_marginTop="45dp"
+                android:fontFamily="@font/chelsea_market"
                 android:text="BIKE"
+                android:textSize="16dp"
                 android:textColor="#000000"
                 android:textStyle="bold" />
 
@@ -150,28 +157,30 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/mobilicon"
                 android:layout_marginStart="280dp"
-                android:layout_marginTop="25dp"
-                android:fontFamily="sans-serif"
+                android:layout_marginTop="45dp"
+                android:fontFamily="@font/chelsea_market"
                 android:text="HARGA"
+                android:textSize="14dp"
                 android:textColor="#000000"
                 android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/mobilicon"
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:layout_centerHorizontal="true"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:layout_marginTop="13dp"
+                android:layout_marginStart="35dp"
                 android:scaleType="fitStart"
-                android:src="@drawable/car_washing_icon" />
+                android:src="@drawable/mobil2" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="118dp"
-                android:layout_marginTop="25dp"
-                android:fontFamily="sans-serif"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/chelsea_market"
                 android:text="CAR"
+                android:textSize="16dp"
                 android:textColor="#000000"
                 android:textStyle="bold" />
 
@@ -180,19 +189,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="280dp"
-                android:layout_marginTop="25dp"
-                android:fontFamily="sans-serif"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/chelsea_market"
                 android:text="HARGA"
+                android:textSize="14dp"
                 android:textColor="#000000"
                 android:textStyle="bold" />
         </RelativeLayout>
 
         <Button
             android:id="@+id/rsvcarwash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
             android:layout_gravity="center"
-            android:layout_marginTop="22dp"
-            android:text="Reserved Now  >" />
+            android:background="@drawable/button1"
+            android:text="Reserved Now  >"
+            android:textSize="19dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/lemon"/>
     </LinearLayout>
 </LinearLayout>

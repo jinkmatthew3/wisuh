@@ -29,7 +29,6 @@ public class AdminActivity extends AppCompatActivity {
     Button btnConfirm;
     private FirebaseFirestore db;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,17 +65,14 @@ public class AdminActivity extends AppCompatActivity {
                                             Toast.makeText(AdminActivity.this,"TopUp Success",Toast.LENGTH_LONG).show();
                                         }
                                     });
+                                }else{
+                                    Toast.makeText(AdminActivity.this,"Email Customer Salah",Toast.LENGTH_LONG).show();
                                 }
                             }
                         }
                     }
                 });
-
-
             }
-//            public void updateSaldo(String email, String saldo){
-//                final EditText etNominal = (EditText) findViewById(R.id.etNominal);
-//            }
         });
     }
     public boolean onCreateOptionsMenu(Menu menu_logout) {
