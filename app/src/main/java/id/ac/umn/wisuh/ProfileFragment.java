@@ -73,7 +73,6 @@ public class ProfileFragment extends androidx.fragment.app.Fragment {
         buttonClickedEditFName = view.findViewById(R.id.editFname);
         buttonClickedEditLName = view.findViewById(R.id.editLname);
         buttonClickedEditNohp = view.findViewById(R.id.editNohp);
-        buttonClickedEditEmail = view.findViewById(R.id.editEmail);
 
 
 
@@ -111,7 +110,6 @@ public class ProfileFragment extends androidx.fragment.app.Fragment {
                             tvuname.setText("Hi, "+fName+" "+lName);
                             tvFname.setText(fName);
                             tvLname.setText(lName);
-                            tvemail.setText(email);
                             tvnoHp.setText(pNumber);
                         }
 //                        TINGGAL DI BENERIN LOGHNYA
@@ -242,41 +240,7 @@ public class ProfileFragment extends androidx.fragment.app.Fragment {
                 dialog.show();
             }
         });
-        buttonClickedEditEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog = new AlertDialog.Builder(getActivity());
-                LayoutInflater inflater = getLayoutInflater();
-                dialogView = inflater.inflate(R.layout.editemaillayout, null);
 
-                dialog.setView(dialogView);
-                dialog.setCancelable(true);
-                dialog.setIcon(R.mipmap.ic_launcher);
-                dialog.setTitle("Edit Email");
-                DETemail = dialogView.findViewById(R.id.DETemail);
-
-                dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Eemail = DETemail.getText().toString();
-
-                        if(!Eemail.isEmpty()){
-                            docRef.update("email",Eemail);
-                            tvemail.setText(Eemail);
-                        }
-
-                    }
-                });
-                dialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
-            }
-        });
 
 
         return view;
