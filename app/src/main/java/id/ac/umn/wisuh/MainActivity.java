@@ -36,22 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 
-
-//        accountbtn = findViewById(R.id.accountbtn);
-//        activitybtn = findViewById(R.id.activitybtn);
-//        lovebtn = findViewById(R.id.lovebtn);
-//        settingbtn = findViewById(R.id.settingbtn);
-//        nearbtn = findViewById(R.id.nearbybtn);
-
-//        nearbtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent pindahnear = new Intent(MainActivity.this, NearbyActivity.class);
-//                startActivity(pindahnear);
-//            }
-//        });
-
-//        cobaDoang = findViewById(R.id.awal);
+//      cobaDoang = findViewById(R.id.awal);
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
         pNumber = intent.getStringExtra("nomorHp");

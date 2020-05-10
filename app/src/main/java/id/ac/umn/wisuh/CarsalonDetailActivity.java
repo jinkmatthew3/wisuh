@@ -175,7 +175,7 @@ public class CarsalonDetailActivity extends FragmentActivity implements OnMapRea
                                     intent = new Intent(CarsalonDetailActivity.this, OngoingActivity.class);
                                     intent.putExtra("idCarwash",idCarwash);
                                     intent.putExtra("tipeKendaraan","motor");
-                                    intent.putExtra("tipeCarwash","Salon");
+                                    intent.putExtra("tipeCarwash","salon");
                                     startActivity(intent);
                                     finish();
                                 }

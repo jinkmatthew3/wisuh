@@ -123,6 +123,7 @@
                                 android:button="@null"
                                 android:background="@drawable/motor_mobil"
                                 android:layout_gravity="center"
+                                android:checked="true"
                                 android:gravity="center">
                             </RadioButton>
 

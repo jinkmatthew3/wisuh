@@ -118,10 +118,6 @@ public class CarwashActivity extends AppCompatActivity {
                                     }
                                 });*/
                             }
-                            /*for (String namaMobil : listCarwash) {
-                                Log.d("testingCarwash2",listCarwash.size()+" ");
-                                Log.d("testingCarwash2", namaMobil);
-                            }*/
                             //bikin imageButton buat ditampilin
                             makeButton();
                         } else {
@@ -231,13 +227,13 @@ public class CarwashActivity extends AppCompatActivity {
             llayout.addView(rlayout);
             rlayout.addView(imgview);
             rlayout.addView(tview);
-//            rating
+//          rating
             rlayout.addView(imgrating);
             rlayout.addView(ratingtext);
-//            jam
+//          jam
             rlayout.addView(imgwaktu);
             rlayout.addView(textjam);
-//            jarak
+//          jarak
             rlayout.addView(textjarak);
         }
     }

@@ -137,13 +137,13 @@
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="0dp"
                 android:layout_weight="1"
-                android:layout_marginTop="55dp"
                 android:background="@drawable/button1"
+                android:fontFamily="@font/lemon"
                 android:text="Finish Order"
-                android:textSize="15dp"
                 android:textColor="@color/white"
-                android:fontFamily="@font/lemon"/>
+                android:textSize="15dp" />
         </LinearLayout>
         <!--    end of order details-->
     </LinearLayout>

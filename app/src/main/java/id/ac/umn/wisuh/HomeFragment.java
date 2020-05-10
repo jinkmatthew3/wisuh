@@ -55,8 +55,8 @@ public class HomeFragment extends Fragment {
         btnsalon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent pindahsalon = new Intent(getActivity().getApplication(), CarwashActivity.class);
-                pindahsalon.putExtra("tipeCarwash","Salon");
+                Intent pindahsalon = new Intent(getActivity().getApplication(), CarsalonActivity.class);
+                pindahsalon.putExtra("tipeCarwash","salon");
                 startActivity(pindahsalon);
             }
         });

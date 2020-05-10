@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -43,10 +45,19 @@ public class CheckoutActivity extends AppCompatActivity {
 
     private Button btnBackHome;
 
+    //Firebase Authentication
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
+
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
 
         tvNamaCarwash = findViewById(R.id.tvNamaCarwash);
         tvTipeCarwash = findViewById(R.id.tvTipeCarwash);
@@ -105,9 +116,26 @@ public class CheckoutActivity extends AppCompatActivity {
         btnBackHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(CheckoutActivity.this, MainActivity.class);
-//                startActivity(intent);
-//                finish();
+                DocumentReference docRef2 = db.collection("users").document(user.getUid());
+                docRef2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        DocumentSnapshot document = task.getResult();
+                        if(document.exists()){
+                            String email = document.getString("email");
+                            String fName = document.getString("fName");
+                            String lName = document.getString("lName");
+                            String pNumber = document.getString("pNumber");
+                            Intent intent = new Intent(CheckoutActivity.this, MainActivity.class);
+                            intent.putExtra("email",email);
+                            intent.putExtra("nomorHp",pNumber);
+                            intent.putExtra("fname",fName);
+                            intent.putExtra("lname",lName);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                });
             }
         });
     }
