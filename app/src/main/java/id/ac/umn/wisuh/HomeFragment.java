@@ -33,12 +33,14 @@ public class HomeFragment extends Fragment {
     private FirebaseFirestore db;
 
     private TextView tvSaldo;
+    private TextView tvFName;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
         tvSaldo = view.findViewById(R.id.tvSaldo);
+        tvFName = view.findViewById(R.id.tvFName);
         btnnearby = view.findViewById(R.id.btn_carwash);
         btnnearby.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +76,9 @@ public class HomeFragment extends Fragment {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             Double saldo = document.getDouble("saldo");
+                            String fName = document.getString("fName");
                             tvSaldo.setText("IDR. " + saldo);
+                            tvFName.setText("Hi, " + fName + " !");
                         }
                         else {
                             Log.d("signIn", "No such document");
