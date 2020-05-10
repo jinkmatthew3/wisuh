@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,6 +41,8 @@ public class CheckoutActivity extends AppCompatActivity {
     private TextView tvHargaCarwash;
     private TextView tvWaktuSelesai;
 
+    private Button btnBackHome;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +54,8 @@ public class CheckoutActivity extends AppCompatActivity {
         tvAlamatCarwash = findViewById(R.id.tvAlamatCarwash);
         tvHargaCarwash = findViewById(R.id.tvHargaCarwash);
         tvWaktuSelesai = findViewById(R.id.tvWaktuSelesai);
+
+        btnBackHome = findViewById(R.id.btnBackHome);
 
         //ambil database
         db = FirebaseFirestore.getInstance();
@@ -93,6 +99,15 @@ public class CheckoutActivity extends AppCompatActivity {
                 } else {
                     Log.d("CheckoutActivity", "get failed with ", task.getException());
                 }
+            }
+        });
+
+        btnBackHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(CheckoutActivity.this, MainActivity.class);
+//                startActivity(intent);
+//                finish();
             }
         });
     }

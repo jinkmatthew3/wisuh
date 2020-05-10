@@ -28,7 +28,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:gravity="center"
             android:fontFamily="@font/bold"
             android:textColor="@color/blue2"
@@ -38,15 +38,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="40dp"
+            android:layout_weight="1.0"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="40dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
+                android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_marginBottom="30dp">
+                android:layout_marginBottom="20dp">
                 <!--    maps-->
                 <fragment
                     android:id="@+id/map"
@@ -64,15 +66,18 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp"
                 android:orientation="horizontal">
+
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="220dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:text="Carwash Name : " />
                 <TextView
                     android:id="@+id/tvNamaCarwash"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="kosong" />
+                    android:layout_weight="1.0"
+                    android:text="loading" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -80,14 +85,17 @@
                 android:paddingTop="5dp"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="220dp"
                     android:layout_height="wrap_content"
-                    android:text="Address : " />
+                    android:layout_weight="1.0"
+                    android:text="Address \t\t\t\t\t\t: " />
                 <TextView
                     android:id="@+id/tvAlamatCarwash"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="kosong" />
+                    android:maxLines="2"
+                    android:layout_weight="1.0"
+                    android:text="loading" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -95,14 +103,16 @@
                 android:paddingTop="5dp"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="220dp"
                     android:layout_height="wrap_content"
-                    android:text="Price : " />
+                    android:layout_weight="1.0"
+                    android:text="Price \t\t\t\t\t\t\t\t\t: " />
                 <TextView
                     android:id="@+id/tvHargaCarwash"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="kosong" />
+                    android:layout_weight="1.0"
+                    android:text="loading" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,14 +120,16 @@
                 android:paddingTop="5dp"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="220dp"
                     android:layout_height="wrap_content"
-                    android:text="Status : " />
+                    android:layout_weight="1.0"
+                    android:text="Status \t\t\t\t\t\t\t\t: " />
                 <TextView
                     android:id="@+id/tvStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="kosong" />
+                    android:layout_weight="1.0"
+                    android:text="loading" />
             </LinearLayout>
 
             <Button
@@ -125,6 +137,7 @@
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:layout_marginTop="55dp"
                 android:background="@drawable/button1"
                 android:text="Finish Order"
