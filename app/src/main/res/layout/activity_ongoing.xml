@@ -45,7 +45,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginBottom="30dp">
                 <!--    maps-->
                 <fragment
                     android:id="@+id/map"
@@ -124,10 +125,10 @@
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="55dp"
                 android:background="@drawable/button1"
                 android:text="Finish Order"
-                android:textSize="19sp"
+                android:textSize="15dp"
                 android:textColor="@color/white"
                 android:fontFamily="@font/lemon"/>
         </LinearLayout>
