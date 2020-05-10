@@ -204,7 +204,7 @@
             android:layout_gravity="center"
             android:background="@drawable/button1"
             android:text="Reserved Now  >"
-            android:textSize="19dp"
+            android:textSize="19sp"
             android:textColor="@color/white"
             android:fontFamily="@font/lemon"/>
     </LinearLayout>

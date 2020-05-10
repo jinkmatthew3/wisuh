@@ -1,6 +1,7 @@
 package id.ac.umn.wisuh;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
@@ -53,6 +54,13 @@ public class OngoingActivity extends FragmentActivity implements OnMapReadyCallb
     //Firebase Authentication
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+
+    @Override
+    public void onBackPressed()
+    {
+        // code here to show dialog
+        super.onBackPressed();  // optional depending on your needs
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
