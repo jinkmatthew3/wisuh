@@ -1,9 +1,12 @@
 package id.ac.umn.wisuh;
 
 import androidx.annotation.NonNull;
+
+import android.Manifest;
 import android.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -14,6 +17,8 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -26,6 +31,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -45,6 +52,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
+import com.google.maps.android.SphericalUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -64,6 +72,7 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
     private TextView tvNamaCarwash;
     //private TextView tvDescCarwash;
     private TextView tvjamCarwash;
+    private TextView tvjrkCarwash;
     private TextView tvHargaCarwash;
     private TextView tvAlamatCarwash;
     private TextView tvHargaBikewash;
@@ -79,6 +88,15 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
     //Firebase Authentication
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+
+    //Lokasi User buat nampilin yang terdekat
+    Location currentLocation;
+    FusedLocationProviderClient fusedLocationProvideClient;
+    private static final int REQUEST_CODE = 101;
+
+    //From -> the first coordinate from where we need to calculate the distance
+    double fromLongitude;
+    double fromLatitude;
 
 
     @Override
@@ -106,12 +124,40 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
         });
 //        end of toolbar code
 
+        //ambil loc user
+        fusedLocationProvideClient = LocationServices.getFusedLocationProviderClient(this);
+//        fetchLastLocation();
+//        Log.d("onGagal: ", String.valueOf(currentLocation));
+
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]
+                    {
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                    },REQUEST_CODE
+            );
+            return ;
+        }
+
+        Task<Location> task = fusedLocationProvideClient.getLastLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                currentLocation = location;
+                fromLongitude = currentLocation.getLongitude();
+                fromLatitude = currentLocation.getLatitude();
+                Log.d("onSuccess: ", String.valueOf(location));
+                //Toast.makeText(getApplicationContext(),currentLocation.getLatitude()+" "+currentLocation.getLongitude(),Toast.LENGTH_LONG).show();
+            }
+        });
+
         //ambil sesuaiid
         tvNamaCarwash = findViewById(R.id.tvNamaCarwash);
         //tvDescCarwash = findViewById(R.id.tvDescCarwash);
         tvAlamatCarwash = findViewById(R.id.tvAlamatCarwash);
         tvHargaCarwash = findViewById(R.id.tvHargaCarwash);
         tvjamCarwash = findViewById(R.id.tvjamCarwash);
+        tvjrkCarwash = findViewById(R.id.tvjrkCarwash);
         tvHargaBikewash = findViewById(R.id.tvHargaBikewash);
         rsvCarwash = findViewById(R.id.rsvcarwash);
         rgMobilMotor = findViewById(R.id.rgMobilMotor);
@@ -270,7 +316,9 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
                         //Log.d("testingSenen3",document.getString("nama"));
                         //tvNamaCarwash.setText(document.getString("nama"));
                         isiData(document.getString("nama"), document.getString("alamat"),
-                                document.getDouble("jamBuka"),document.getDouble("jamTutup"), document.getDouble("hargaMobil"),document.getDouble("hargaMotor"),document.getGeoPoint("latLong"));
+                                document.getDouble("jamBuka"),document.getDouble("jamTutup"),
+                                document.getDouble("hargaMobil"),document.getDouble("hargaMotor"),
+                                document.getGeoPoint("latLong"));
 
                     } else {
                         Log.d("signIn", "No such document");
@@ -297,13 +345,24 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
 
 
     public void isiData(String nama, String alamat, Double jamBuka, Double jamTutup, Double hargaMobil, Double hargaMotor, GeoPoint latLong){
+        //buat ubah geopoint latLong ke latlong trus ngitung
+        double toLatitude = latLong.getLatitude();
+        double toLongitude = latLong.getLongitude();
+        //Getting both the coordinates
+        LatLng from = new LatLng(fromLatitude,fromLongitude);
+        LatLng to = new LatLng(toLatitude,toLongitude);
+        //Calculating the distance in km
+        Double distance = SphericalUtil.computeDistanceBetween(from, to);
+        Double dist = distance/1000;
+
         //masukkin masing-masing data
         //tvDescCarwash.setText(desc);
         tvNamaCarwash.setText(nama);
         tvAlamatCarwash.setText(alamat);
         tvHargaCarwash.setText(hargaMobil.toString());
         tvHargaBikewash.setText(hargaMotor.toString());
-        tvjamCarwash.setText(jamBuka.toString() + " - " + jamTutup.toString());
+        tvjamCarwash.setText(jamBuka.toString() + " AM - " + jamTutup.toString() + " PM");
+        tvjrkCarwash.setText(String.format("%.1f",dist)+" KM");
         Log.d("testingSenen3",latLong.toString());
         geoPoint = latLong;
         Log.d("testingSenen3",geoPoint.toString());
@@ -331,15 +390,6 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
         NotificationManager notificationManager = (NotificationManager)getSystemService(
                 Context.NOTIFICATION_SERVICE
         );
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            CharSequence name = getString(R.string.app_name);
-//            int importance = NotificationManager.IMPORTANCE_HIGH;
-//            NotificationChannel mChannel = new NotificationChannel("0", name, importance);
-//            assert notificationManager != null;
-//            notificationManager.createNotificationChannel(mChannel);
-//        }
-//        notificationManager.notify(0, builder.build());
 
         //kalo OS diatas atau sama dengan oreo
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

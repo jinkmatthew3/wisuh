@@ -38,11 +38,11 @@ public class AboutActivity extends AppCompatActivity {
 //        end of toolbar code
 
         models = new ArrayList<>();
-        models.add(new AboutModel(R.drawable.girl, "Bella Anggraini", "bella.utomo@student.umn.ac.i"));
+        models.add(new AboutModel(R.drawable.girl, "Bella Anggraini", "bella.utomo@student.umn.ac.id"));
         models.add(new AboutModel(R.drawable.girl2, "Devira Paramitha", "devira.kurniawan@student.umn.ac.id"));
         models.add(new AboutModel(R.drawable.man2, "Dhammajoti", "dhammajoti@student.umn.ac.id"));
         models.add(new AboutModel(R.drawable.girl3, "Meilona Eurica Karmelia", "meilona.karmelia@student.umn.ac.id"));
-        models.add(new AboutModel(R.drawable.man, "Michael Roni", "michael.roni@student.umn.ac.id."));
+        models.add(new AboutModel(R.drawable.man, "Michael Roni", "michael.roni@student.umn.ac.id"));
 
         adapter = new AboutAdapter(models, this);
 
