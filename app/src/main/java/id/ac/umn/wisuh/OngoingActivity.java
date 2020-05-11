@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -45,6 +46,7 @@ public class OngoingActivity extends FragmentActivity implements OnMapReadyCallb
     private String tipeKendaraan;
     private String tipeCarwash;
     private String idPesanan;
+    public Double saldoUser;
 
     private GoogleMap mMap;
 
@@ -190,48 +192,79 @@ public class OngoingActivity extends FragmentActivity implements OnMapReadyCallb
             }
         }
 
-
         btnSelesai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DocumentReference updateCarwash;
 
+
                 updateCarwash = db.collection("pencucian").document(idPesanan);
 
                 // update status dan waktuSelesai
-                updateCarwash.update("status","completed","waktuSelesai", Timestamp.now()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                updateCarwash.update("status", "completed", "waktuSelesai", Timestamp.now()).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d("updateSukses","Update dokumen sukses");
+                        Log.d("updateSukses", "Update dokumen sukses");
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d("updateFail","Update dokumen sukses");
+                        Log.d("updateFail", "Update dokumen sukses");
                     }
                 });
 
-                DocumentReference updateSaldo;
+                final DocumentReference updateSaldo;
 
                 updateSaldo = db.collection("users").document(user.getUid());
-                updateSaldo.update("saldo", FieldValue.increment(-Double.valueOf((String)tvHargaCarwash.getText()))).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                joti coba edit biar pas saldo kurang ga bisa finish
+                updateSaldo.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("updateSukses","Update dokumen sukses");
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("updateFail","Update dokumen sukses");
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                saldoUser = document.getDouble("saldo");
+                                Double harga = Double.parseDouble(tvHargaCarwash.getText().toString());
+                                Log.d("saldo user", String.valueOf(saldoUser));
+                                Log.d("harga", String.valueOf(harga));
+                                if (saldoUser > harga) {
+
+//                Bagian ini ga di edit ya
+                                    updateSaldo.update("saldo", FieldValue.increment(-Double.valueOf((String) tvHargaCarwash.getText()))).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("updateSukses", "Update dokumen sukses");
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d("updateFail", "Update dokumen sukses");
+                                        }
+                                    });
+
+                                    Intent intent;
+                                    intent = new Intent(OngoingActivity.this, CheckoutActivity.class);
+                                    intent.putExtra("idPesanan", idPesanan);
+                                    startActivity(intent);
+                                    finish();
+//               Sampai sini tidak di utak atik
+                                } else {
+                                    Toast.makeText(OngoingActivity.this, "saldo anda kurang", Toast.LENGTH_SHORT).show();
+                                }
+//                                Log.d("saldo User : ", String.valueOf(saldoUser));
+                            }
+//
+                        } else {
+                            Log.d("signIn", "get failed with ", task.getException());
+                        }
                     }
                 });
 
-                Intent intent;
-                intent = new Intent(OngoingActivity.this, CheckoutActivity.class);
-                intent.putExtra("idPesanan",idPesanan);
-                startActivity(intent);
-                finish();
             }
+
+                
+
+//            }
         });
     }
 

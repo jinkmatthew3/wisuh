@@ -39,39 +39,47 @@ public class AdminActivity extends AppCompatActivity {
         etEmailUser = (EditText) findViewById(R.id.etEmailUser);
         etNominal = (EditText) findViewById(R.id.etNominal);
         btnConfirm = (Button) findViewById(R.id.btnConfirm);
+        final int nominal = Integer.parseInt(etNominal.getText().toString());
+        Log.d("Nominal", String.valueOf(nominal));
         //ambil database
         db = FirebaseFirestore.getInstance();
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-        //        ambil data dari koleksi User firestore
-                db.collection("users").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if(!queryDocumentSnapshots.isEmpty()){
-                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+//                cek nominal gk boleh minus
+                if(nominal < 1){
+                    Toast.makeText(AdminActivity.this,"Nominal tidak valid",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    //        ambil data dari koleksi User firestore
+                    db.collection("users").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if (!queryDocumentSnapshots.isEmpty()) {
+                                List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
 
-                            for (DocumentSnapshot d : list){
-                                Customer c = new Customer();
-                                c = d.toObject(Customer.class);
-                                c.setId(d.getId());
-                                if (etEmailUser.getText().toString().equals(c.getEmail())){
-                                    c.setSaldo(c.getSaldo()+ Integer.parseInt(etNominal.getText().toString()));
-                                    System.out.println(c.getSaldo());
-                                    db.collection("users").document(c.getId()).set(c).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Toast.makeText(AdminActivity.this,"TopUp Success",Toast.LENGTH_LONG).show();
-                                        }
-                                    });
-                                }else{
-                                    Toast.makeText(AdminActivity.this,"Email Customer Salah",Toast.LENGTH_LONG).show();
+                                for (DocumentSnapshot d : list) {
+                                    Customer c = new Customer();
+                                    c = d.toObject(Customer.class);
+                                    c.setId(d.getId());
+                                    if (etEmailUser.getText().toString().equals(c.getEmail())) {
+                                        c.setSaldo(c.getSaldo() + Integer.parseInt(etNominal.getText().toString()));
+                                        System.out.println(c.getSaldo());
+                                        db.collection("users").document(c.getId()).set(c).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(AdminActivity.this, "TopUp Success", Toast.LENGTH_LONG).show();
+                                            }
+                                        });
+                                    } else {
+                                        Toast.makeText(AdminActivity.this, "Email Customer Salah", Toast.LENGTH_LONG).show();
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
     }
