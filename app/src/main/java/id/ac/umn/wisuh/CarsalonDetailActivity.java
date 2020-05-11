@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -119,77 +120,118 @@ public class CarsalonDetailActivity extends FragmentActivity implements OnMapRea
 
                 // liat mana yang di checked
                 if(selected_id == btnMobil.getId()){
+                    // dari sini saya ubah
+                    final Double hargamobil = Double.parseDouble(tvHargaCarwash.getText().toString());
+                    Log.d("harga yang dipilih ", String.valueOf(hargamobil));
+                    //cek saldo cukup gk
+                    final DocumentReference docuser = db.collection("users").document(user.getUid());
+                    docuser.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    final Double saldo = document.getDouble("saldo");
+                                    Log.d("saldo masuk ", String.valueOf(saldo));
+                                    if (hargamobil < saldo) { // sampai sini saya ubah
+                                        Log.d("harga mobil < saldo", String.valueOf(saldo));
+                                        //Masukkin ke database
+                                        Map<String, Object> dataPencucian = new HashMap<>();
+                                        dataPencucian.put("idCarwash", idCarwash);
+                                        dataPencucian.put("idUser", user.getUid());
+                                        dataPencucian.put("status", "ongoing");
+                                        dataPencucian.put("tipeCarwash", "Carwash");
+                                        dataPencucian.put("tipeKendaraan", "Mobil");
+                                        dataPencucian.put("waktuMulai", Timestamp.now());
+                                        dataPencucian.put("waktuSelesai", Timestamp.now());
 
-                    //Masukkin ke database
-                    Map<String, Object> dataPencucian = new HashMap<>();
-                    dataPencucian.put("idCarwash",idCarwash);
-                    dataPencucian.put("idUser",user.getUid());
-                    dataPencucian.put("status","ongoing");
-                    dataPencucian.put("tipeCarwash","Carwash");
-                    dataPencucian.put("tipeKendaraan","Mobil");
-                    dataPencucian.put("waktuMulai", Timestamp.now());
-                    dataPencucian.put("waktuSelesai",Timestamp.now());
+                                        db.collection("pencucian")
+                                                .add(dataPencucian)
+                                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                    @Override
+                                                    public void onSuccess(DocumentReference documentReference) {
+                                                        //Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                                        Intent intent;
+                                                        intent = new Intent(CarsalonDetailActivity.this, OngoingActivity.class);
+                                                        intent.putExtra("idCarwash", idCarwash);
+                                                        intent.putExtra("tipeKendaraan", "mobil");
+                                                        intent.putExtra("tipeCarwash", "Carwash");
+                                                        intent.putExtra("idPesanan", documentReference.getId());
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w("GagalMasukkin Document", "Error adding document", e);
+                                                    }
+                                                });
+                                        Log.d("testingJumat", "kamu milih mobil");
+                                    } else {
+                                        Toast.makeText(CarsalonDetailActivity.this, "saldo anda kurang", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    // dari sini saya ubah
+                    final Double hargamotor = Double.parseDouble(tvHargaBikewash.getText().toString());
+                    Log.d("harga yang dipilih ", String.valueOf(hargamotor));
+                    //cek saldo cukup gk
+                    final DocumentReference docuser = db.collection("users").document(user.getUid());
+                    docuser.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    final Double saldo = document.getDouble("saldo");
+                                    Log.d("saldo masuk ", String.valueOf(saldo));
+                                    if (hargamotor < saldo) {
+                                        //Masukkin ke database
+                                        Map<String, Object> dataPencucian = new HashMap<>();
+                                        dataPencucian.put("idCarwash", idCarwash);
+                                        dataPencucian.put("idUser", user.getUid());
+                                        dataPencucian.put("status", "ongoing");
+                                        dataPencucian.put("tipeCarwash", "Carwash");
+                                        dataPencucian.put("tipeKendaraan", "Motor");
+                                        dataPencucian.put("waktuMulai", Timestamp.now());
+                                        dataPencucian.put("waktuSelesai", Timestamp.now());
 
-                    db.collection("pencucian")
-                            .add(dataPencucian)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    //Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
-                                    Intent intent;
-                                    intent = new Intent(CarsalonDetailActivity.this, OngoingActivity.class);
-                                    intent.putExtra("idCarwash",idCarwash);
-                                    intent.putExtra("tipeKendaraan","mobil");
-                                    intent.putExtra("tipeCarwash","Salon");
-                                    startActivity(intent);
-                                    finish();
+                                        db.collection("pencucian")
+                                                .add(dataPencucian)
+                                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                    @Override
+                                                    public void onSuccess(DocumentReference documentReference) {
+                                                        //Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                                        Intent intent;
+                                                        intent = new Intent(CarsalonDetailActivity.this, OngoingActivity.class);
+                                                        intent.putExtra("idCarwash", idCarwash);
+                                                        intent.putExtra("tipeKendaraan", "motor");
+                                                        intent.putExtra("tipeCarwash", "Carwash");
+                                                        intent.putExtra("idPesanan", documentReference.getId());
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w("GagalMasukkin Document", "Error adding document", e);
+                                                    }
+                                                });
+                                        Log.d("testingJumat", "kamu milih motor");
+                                    } else {
+                                        Toast.makeText(CarsalonDetailActivity.this, "saldo anda kurang", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w("GagalMasukkin Document", "Error adding document", e);
-                                }
-                            });
-                    Log.d("testingJumat","kamu milih mobil");
+                            }
+                        }
+                    });
                 }
-                else{
-
-                    //Masukkin ke database
-                    Map<String, Object> dataPencucian = new HashMap<>();
-                    dataPencucian.put("idCarwash",idCarwash);
-                    dataPencucian.put("idUser",user.getUid());
-                    dataPencucian.put("status","ongoing");
-                    dataPencucian.put("tipeCarwash","Carwash");
-                    dataPencucian.put("tipeKendaraan","Motor");
-                    dataPencucian.put("waktuMulai",Timestamp.now());
-                    dataPencucian.put("waktuSelesai",Timestamp.now());
-
-                    db.collection("pencucian")
-                            .add(dataPencucian)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    //Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
-                                    Intent intent;
-                                    intent = new Intent(CarsalonDetailActivity.this, OngoingActivity.class);
-                                    intent.putExtra("idCarwash",idCarwash);
-                                    intent.putExtra("tipeKendaraan","motor");
-                                    intent.putExtra("tipeCarwash","salon");
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w("GagalMasukkin Document", "Error adding document", e);
-                                }
-                            });
-                    Log.d("testingJumat","kamu milih motor");
-                }
-            }
-        });
+            }});
 
         //ambil data-datanya dari database
         DocumentReference docRef = db.collection("salon").document(idCarwash);
