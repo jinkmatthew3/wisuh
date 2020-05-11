@@ -90,8 +90,8 @@ public class CarwashActivity extends AppCompatActivity {
         listDistance = new ArrayList<>();
 
         fusedLocationProvideClient = LocationServices.getFusedLocationProviderClient(this);
-        fetchLastLocation();
-        Log.d("onGagal: ", String.valueOf(currentLocation));
+//        fetchLastLocation();
+//        Log.d("onGagal: ", String.valueOf(currentLocation));
 
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
