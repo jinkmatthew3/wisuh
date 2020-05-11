@@ -62,7 +62,7 @@
                         android:id="@+id/imgview"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:background="@drawable/car_washing_icon" />
+                        android:background="@drawable/carwash" />
 
                     <TextView
                         android:id="@+id/tvNamaCarwash"
@@ -71,6 +71,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginTop="20dp"
                         android:layout_marginStart="10dp"
+                        android:textColor="#0000FF"
                         android:layout_toEndOf="@+id/imgview"
                         android:layout_toRightOf="@+id/imgview"
                         android:fontFamily="@font/aclonica"
@@ -87,6 +88,7 @@
                         android:layout_toEndOf="@+id/imgview"
                         android:paddingLeft="5dp"
                         android:text="djsdas"
+                        android:textColor="#000000"
                         android:fontFamily="@font/chelsea_market" />
 
                     <TextView
@@ -98,6 +100,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_toEndOf="@+id/imgview"
                         android:paddingLeft="5dp"
+                        android:textColor="#000000"
                         android:fontFamily="@font/caveat_brush"
                         android:text="djsdas" />
 
