@@ -196,7 +196,7 @@ public class CarsalonActivity extends AppCompatActivity {
             imgview.getLayoutParams().height = 310;
             imgview.getLayoutParams().width = 1080;
             imgview.setScaleType(ImageButton.ScaleType.FIT_START);
-            imgview.setImageResource(R.drawable.car_washing_icon);
+            imgview.setImageResource(R.drawable.carsalon);
 
             final String idCarwash = listIdCarwash.get(i-1);
             Log.d("testingSenen",idCarwash);
@@ -216,11 +216,13 @@ public class CarsalonActivity extends AppCompatActivity {
                     LayoutParams.WRAP_CONTENT,
                     LayoutParams.WRAP_CONTENT);
             tview.setText(listCarwash.get(i-1));
-            tview.setTextSize(15);
-            tview.setTypeface(Typeface.DEFAULT_BOLD);
-            tview.setTypeface(Typeface.SANS_SERIF);
-            tview.setTextColor(Color.BLACK);
-            tview.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+            tview.setTextSize(20);
+//            tview.setTypeface(Typeface.DEFAULT_BOLD);
+//            tview.setTypeface(Typeface.SANS_SERIF);
+            tview.setTextColor(Color.BLUE);
+//            tview.setTypeface(fontstyle);
+            tview.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+//            tview.setTypeface(Typeface.createFromAsset(getAssets(), "bold.tff"));
             txtviewparam.setMargins(300, 20, 0, 0);
             tview.setLayoutParams(txtviewparam);
 
@@ -228,50 +230,58 @@ public class CarsalonActivity extends AppCompatActivity {
             ImageView imgrating = new ImageView(this);
 //            imgrating.setLayoutParams(imageButtonParam);
             LayoutParams imgrtng = new LayoutParams(50, 50);
-            imgrtng.setMargins(300, 120, 0, 0);
-            imgrating.setImageResource(R.drawable.car_washing_icon);
+            imgrtng.setMargins(305, 120, 0, 0);
+            imgrating.setImageResource(R.drawable.rating);
             imgrating.setLayoutParams(imgrtng);
 
             TextView ratingtext = new TextView(this);
             LayoutParams ratingtxt = new LayoutParams(
                     LayoutParams.WRAP_CONTENT,
                     LayoutParams.WRAP_CONTENT);
-            ratingtext.setText("Rating : " + listRatingCarwash.get(i-1));
+            ratingtext.setText(String.valueOf(listRatingCarwash.get(i-1)));
             ratingtext.setTextColor(Color.BLACK);
-            ratingtext.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
-            ratingtxt.setMargins(360, 120, 0, 5);
+            ratingtext.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+            ratingtxt.setMargins(365, 120, 0, 5);
             ratingtext.setLayoutParams(ratingtxt);
 
 //            waktu
             ImageView imgwaktu = new ImageView(this);
 //            imgrating.setLayoutParams(imageButtonParam);
-//            LayoutParams imgwkt = new LayoutParams(50, 50);
-//            imgwkt.setMargins(520, 120, 0, 0);
-//            imgwaktu.setImageResource(R.drawable.car_repair_icon);
-//            imgwaktu.setLayoutParams(imgwkt);
-//
-//            TextView textjam = new TextView(this);
-//            LayoutParams txtj = new LayoutParams(
-//                    LayoutParams.WRAP_CONTENT,
-//                    LayoutParams.WRAP_CONTENT);
-//            textjam.setText("Waktu");
-//            textjam.setTextColor(Color.BLACK);
-//            textjam.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
-//            txtj.setMargins(580, 120, 0, 0);
-//            textjam.setLayoutParams(txtj);
+            LayoutParams imgwkt = new LayoutParams(50, 50);
+            imgwkt.setMargins(470, 120, 0, 0);
+            imgwaktu.setImageResource(R.drawable.time);
+            imgwaktu.setLayoutParams(imgwkt);
+
+            TextView textjam = new TextView(this);
+            LayoutParams txtj = new LayoutParams(
+                    LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT);
+            textjam.setText("20 Menit");
+            textjam.setTextColor(Color.BLACK);
+            textjam.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+            txtj.setMargins(520, 120, 0, 0);
+            textjam.setLayoutParams(txtj);
 
 //            jarak
+            ImageView imgjarak = new ImageView(this);
+//            imgrating.setLayoutParams(imageButtonParam);
+            LayoutParams imgjrk = new LayoutParams(50, 50);
+            imgjrk.setMargins(720, 120, 0, 0);
+            imgjarak.setImageResource(R.drawable.distance);
+            imgjarak.setLayoutParams(imgjrk);
+
             TextView textjarak = new TextView(this);
             LayoutParams txtjrk = new LayoutParams(
                     LayoutParams.WRAP_CONTENT,
                     LayoutParams.WRAP_CONTENT);
-            textjarak.setText("1.1 KM");
+            Log.d("onSuccess: ", String.valueOf(listDistance.get(i-1)));
+            Double dist = listDistance.get(i-1);
+            textjarak.setText(String.format("%.1f",dist)+" KM");
             textjarak.setTextColor(Color.BLACK);
-            textjarak.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
-//            txtjrk.setMargins(740, 120, 0, 0);
-            txtjrk.setMargins(580, 120, 0, 0);
+            textjarak.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+            txtjrk.setMargins(770, 120, 0, 0);
+//            txtjrk.setMargins(580, 120, 0, 0);
             textjarak.setLayoutParams(txtjrk);
-
 
 
             llayout.addView(rlayout);
@@ -282,8 +292,9 @@ public class CarsalonActivity extends AppCompatActivity {
             rlayout.addView(ratingtext);
 //            jam
             rlayout.addView(imgwaktu);
-//            rlayout.addView(textjam);
+            rlayout.addView(textjam);
 //            jarak
+            rlayout.addView(imgjarak);
             rlayout.addView(textjarak);
         }
     }
