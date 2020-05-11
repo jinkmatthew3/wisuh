@@ -4,9 +4,19 @@ import androidx.annotation.NonNull;
 import android.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationChannelGroup;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -116,15 +126,22 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
         idCarwash = intent.getStringExtra("idCarwash");
         Log.d("testingSenen2",idCarwash);
 
+        //ambi data shared preference notif
+        SharedPreferences sharedPrefs = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        String cookieName = sharedPrefs.getString("cookieName", "missing");
+        final boolean notif = sharedPrefs.getBoolean("notif", true);
 
 
         rsvCarwash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int selected_id = rgMobilMotor.getCheckedRadioButtonId();
-
                 // liat mana yang di checked
                 if (selected_id == btnMobil.getId()) {
+                    if(notif){
+                        // notif
+                        displayNotification();
+                    }
                     // dari sini saya ubah
                     final Double hargamobil = Double.parseDouble(tvHargaCarwash.getText().toString());
                     Log.d("harga yang dipilih ", String.valueOf(hargamobil));
@@ -181,6 +198,10 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
                         }
                     });
                 } else {
+                    if(notif){
+                        // notif
+                        displayNotification();
+                    }
                     // dari sini saya ubah
                     final Double hargamotor = Double.parseDouble(tvHargaBikewash.getText().toString());
                     Log.d("harga yang dipilih ", String.valueOf(hargamotor));
@@ -291,6 +312,49 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+//  ini munculin notif
+    public void displayNotification(){
+
+        String CHANNEL_ID = "0";
+        String channel_name = "Wisuh";
+        String channel_description = "Your Order have been placed!";
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.logo)
+                .setContentTitle(channel_name)
+                .setContentText(channel_description)
+                .setSound(defaultSoundUri)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+        NotificationManager notificationManager = (NotificationManager)getSystemService(
+                Context.NOTIFICATION_SERVICE
+        );
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            CharSequence name = getString(R.string.app_name);
+//            int importance = NotificationManager.IMPORTANCE_HIGH;
+//            NotificationChannel mChannel = new NotificationChannel("0", name, importance);
+//            assert notificationManager != null;
+//            notificationManager.createNotificationChannel(mChannel);
+//        }
+//        notificationManager.notify(0, builder.build());
+
+        //kalo OS diatas atau sama dengan oreo
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, channel_name, importance);
+            channel.setDescription(channel_description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationMgr = getSystemService(NotificationManager.class);
+            notificationMgr.createNotificationChannel(channel);
+        }
+
+        //show notification
+        notificationManager.notify(0, builder.build());
     }
 }
 
