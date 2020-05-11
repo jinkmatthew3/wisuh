@@ -23,16 +23,19 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.maps.android.SphericalUtil;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -55,6 +58,7 @@ public class CarsalonActivity extends AppCompatActivity {
     ArrayList<String> listIdCarwash;
     ArrayList<Image> listFotoCarwash;
     ArrayList<Double> listRatingCarwash;
+    ArrayList<Double> listDistance;
 
     StorageReference storageReference;
 
@@ -62,6 +66,10 @@ public class CarsalonActivity extends AppCompatActivity {
     Location currentLocation;
     FusedLocationProviderClient fusedLocationProvideClient;
     private static final int REQUEST_CODE = 101;
+
+    //From -> the first coordinate from where we need to calculate the distance
+    double fromLongitude;
+    double fromLatitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,9 +94,33 @@ public class CarsalonActivity extends AppCompatActivity {
         listFotoCarwash = new ArrayList<>();
         listIdCarwash = new ArrayList<>();
         listRatingCarwash = new ArrayList<>();
+        listDistance = new ArrayList<>();
 
         fusedLocationProvideClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLastLocation();
+        Log.d("onGagal: ", String.valueOf(currentLocation));
+
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]
+                    {
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                    },REQUEST_CODE
+            );
+            return ;
+        }
+
+        Task<Location> task = fusedLocationProvideClient.getLastLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                currentLocation = location;
+                fromLongitude = currentLocation.getLongitude();
+                fromLatitude = currentLocation.getLatitude();
+                Log.d("onSuccess: ", String.valueOf(location));
+                //Toast.makeText(getApplicationContext(),currentLocation.getLatitude()+" "+currentLocation.getLongitude(),Toast.LENGTH_LONG).show();
+            }
+        });
 
         //ambil database
         db = FirebaseFirestore.getInstance();
@@ -104,10 +136,21 @@ public class CarsalonActivity extends AppCompatActivity {
                                 //Log.d("testingCarwash", document.getId() + " => " + document.getData());
                                 String tempString = document.getString("nama");
                                 Double tempRating = document.getDouble("rating");
+                                GeoPoint templatLong = document.getGeoPoint("latLong");
+                                //buat ubah latLong trus ngitung
+                                double toLatitude = templatLong.getLatitude();
+                                double toLongitude = templatLong.getLongitude();
+                                //Getting both the coordinates
+                                LatLng from = new LatLng(fromLatitude,fromLongitude);
+                                LatLng to = new LatLng(toLatitude,toLongitude);
+                                //Calculating the distance in meters
+                                Double tempdistance = SphericalUtil.computeDistanceBetween(from, to);
+
                                 //Log.d("testingCarwash",tempString);
                                 listRatingCarwash.add(tempRating);
                                 listCarwash.add(tempString);
                                 listIdCarwash.add(document.getId());
+                                listDistance.add(tempdistance/1000);
                                 /*storageReference = FirebaseStorage.getInstance().getReference();
                                 StorageReference profilRef = storageReference.child("carwash/"+document.getId()+"/profil.jpg");
                                 profilRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -202,20 +245,20 @@ public class CarsalonActivity extends AppCompatActivity {
 //            waktu
             ImageView imgwaktu = new ImageView(this);
 //            imgrating.setLayoutParams(imageButtonParam);
-            LayoutParams imgwkt = new LayoutParams(50, 50);
-            imgwkt.setMargins(520, 120, 0, 0);
-            imgwaktu.setImageResource(R.drawable.car_repair_icon);
-            imgwaktu.setLayoutParams(imgwkt);
-
-            TextView textjam = new TextView(this);
-            LayoutParams txtj = new LayoutParams(
-                    LayoutParams.WRAP_CONTENT,
-                    LayoutParams.WRAP_CONTENT);
-            textjam.setText("Waktu");
-            textjam.setTextColor(Color.BLACK);
-            textjam.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
-            txtj.setMargins(580, 120, 0, 0);
-            textjam.setLayoutParams(txtj);
+//            LayoutParams imgwkt = new LayoutParams(50, 50);
+//            imgwkt.setMargins(520, 120, 0, 0);
+//            imgwaktu.setImageResource(R.drawable.car_repair_icon);
+//            imgwaktu.setLayoutParams(imgwkt);
+//
+//            TextView textjam = new TextView(this);
+//            LayoutParams txtj = new LayoutParams(
+//                    LayoutParams.WRAP_CONTENT,
+//                    LayoutParams.WRAP_CONTENT);
+//            textjam.setText("Waktu");
+//            textjam.setTextColor(Color.BLACK);
+//            textjam.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+//            txtj.setMargins(580, 120, 0, 0);
+//            textjam.setLayoutParams(txtj);
 
 //            jarak
             TextView textjarak = new TextView(this);
@@ -225,7 +268,8 @@ public class CarsalonActivity extends AppCompatActivity {
             textjarak.setText("1.1 KM");
             textjarak.setTextColor(Color.BLACK);
             textjarak.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
-            txtjrk.setMargins(740, 120, 0, 0);
+//            txtjrk.setMargins(740, 120, 0, 0);
+            txtjrk.setMargins(580, 120, 0, 0);
             textjarak.setLayoutParams(txtjrk);
 
 
@@ -238,7 +282,7 @@ public class CarsalonActivity extends AppCompatActivity {
             rlayout.addView(ratingtext);
 //            jam
             rlayout.addView(imgwaktu);
-            rlayout.addView(textjam);
+//            rlayout.addView(textjam);
 //            jarak
             rlayout.addView(textjarak);
         }

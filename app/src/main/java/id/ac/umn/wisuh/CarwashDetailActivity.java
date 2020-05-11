@@ -128,7 +128,6 @@ public class CarwashDetailActivity extends FragmentActivity implements OnMapRead
 
         //ambi data shared preference notif
         SharedPreferences sharedPrefs = getSharedPreferences("Settings", Context.MODE_PRIVATE);
-        String cookieName = sharedPrefs.getString("cookieName", "missing");
         final boolean notif = sharedPrefs.getBoolean("notif", true);
 
 
