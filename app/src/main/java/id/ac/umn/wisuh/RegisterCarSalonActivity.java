@@ -183,6 +183,7 @@ public class RegisterCarSalonActivity extends Fragment {
                             Toast.makeText(getContext(),"Berhasil register!",Toast.LENGTH_SHORT).show();
                         }
                     });
+//                    
     }
 }
 
