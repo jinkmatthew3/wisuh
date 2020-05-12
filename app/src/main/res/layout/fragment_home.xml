@@ -14,31 +14,38 @@
         android:background="@color/skyblue">
 
         <TextView
-            android:id="@+id/tvFName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:fontFamily="@font/bold"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="30sp" />
-
-        <ImageView
-            android:id="@+id/iv1"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
+        android:id="@+id/tvFName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/bold"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+        <LinearLayout
+            android:id="@+id/llUp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="150dp"
             android:layout_below="@+id/tvFName"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/wallet"/>
+            android:background="@drawable/background1">
+            <ImageView
+                android:id="@+id/iv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:src="@drawable/wallet"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_below="@+id/iv1"
+            android:layout_below="@+id/llUp"
             android:text="BALANCE"
-            android:textSize="40sp"
+            android:textSize="25dp"
             android:gravity="center"
             android:textColor="@color/white"
             android:fontFamily="@font/bold"/>
@@ -48,9 +55,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv1"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="IDR "
-            android:textSize="25sp"
+            android:textSize="20dp"
             android:gravity="center"
             android:textColor="@color/white"
             android:fontFamily="@font/reguler"/>
@@ -63,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/rlUp"
-        android:layout_marginTop="-100dp"
+        android:layout_marginTop="-80dp"
         android:padding="30dp"
         android:gravity="center"
         android:orientation="horizontal"

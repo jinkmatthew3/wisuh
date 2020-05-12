@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                         //User Logged in Failed
                         Snackbar.make(btnLogin, "Incorrect Email or Password!", Snackbar.LENGTH_LONG).show();
                     }*/
-                    }
+                }
                 }
             });
         }

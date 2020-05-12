@@ -4,9 +4,8 @@
         android:title="Home"
         android:id="@+id/homeMenu"
         android:icon="@drawable/ic_home_black_24dp"/>
-
     <item
-        android:title="Activity"
+        android:title="History"
         android:id="@+id/activityMenu"
         android:icon="@drawable/ic_assignment_black_24dp"/>
 
