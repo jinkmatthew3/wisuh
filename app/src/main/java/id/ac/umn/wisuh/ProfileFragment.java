@@ -61,7 +61,6 @@ public class ProfileFragment extends androidx.fragment.app.Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         tvuname = view.findViewById(R.id.tvuname);
         tvnoHp = view.findViewById(R.id.tvnoHp);
@@ -142,7 +141,7 @@ public class ProfileFragment extends androidx.fragment.app.Fragment {
 
                 dialog.setView(dialogView);
                 dialog.setCancelable(true);
-                dialog.setIcon(R.mipmap.ic_launcher);
+                dialog.setIcon(R.mipmap.wisuh_launcher);
                 dialog.setTitle("Edit First Name");
                 DETfname = dialogView.findViewById(R.id.DETfname);
 
@@ -178,7 +177,7 @@ public class ProfileFragment extends androidx.fragment.app.Fragment {
 
                 dialog.setView(dialogView);
                 dialog.setCancelable(true);
-                dialog.setIcon(R.mipmap.ic_launcher);
+                dialog.setIcon(R.mipmap.wisuh_launcher);
                 dialog.setTitle("Edit Laast Name");
                 DETlname = dialogView.findViewById(R.id.DETlname);
 
@@ -214,7 +213,7 @@ public class ProfileFragment extends androidx.fragment.app.Fragment {
 
                 dialog.setView(dialogView);
                 dialog.setCancelable(true);
-                dialog.setIcon(R.mipmap.ic_launcher);
+                dialog.setIcon(R.mipmap.wisuh_launcher);
                 dialog.setTitle("Edit Number Phone");
                 DETnohp = dialogView.findViewById(R.id.DETnohp);
 

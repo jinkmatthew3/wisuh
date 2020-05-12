@@ -40,7 +40,7 @@
                     android:id="@+id/map"
                     android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="300dp"
                     tools:context=".CarwashDetailActivity" />
             </LinearLayout>
 
@@ -62,19 +62,20 @@
                         android:id="@+id/imgview"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:background="@drawable/car_washing_icon" />
+                        android:background="@drawable/carwash" />
 
                     <TextView
                         android:id="@+id/tvNamaCarwash"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="0dp"
                         android:layout_marginStart="10dp"
+                        android:textColor="#0000FF"
                         android:layout_toEndOf="@+id/imgview"
                         android:layout_toRightOf="@+id/imgview"
                         android:fontFamily="@font/aclonica"
-                        android:text="hahaha"
+                        android:text="loading"
                         android:textSize="22dp"
                         android:textStyle="bold" />
 
@@ -83,23 +84,39 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tvNamaCarwash"
-                        android:layout_marginStart="7dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="1dp"
                         android:layout_toEndOf="@+id/imgview"
+                        android:fontFamily="@font/chelsea_market"
                         android:paddingLeft="5dp"
-                        android:text="djsdas"
-                        android:fontFamily="@font/chelsea_market" />
+                        android:text="loading"
+                        android:textColor="#000000" />
 
                     <TextView
                         android:id="@+id/tvjamCarwash"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tvAlamatCarwash"
-                        android:layout_marginStart="7dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="1dp"
                         android:layout_toEndOf="@+id/imgview"
-                        android:paddingLeft="5dp"
                         android:fontFamily="@font/caveat_brush"
-                        android:text="djsdas" />
+                        android:paddingLeft="5dp"
+                        android:text="loading"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/tvjrkCarwash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvjamCarwash"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_toEndOf="@+id/imgview"
+                        android:fontFamily="@font/caveat_brush"
+                        android:paddingLeft="5dp"
+                        android:text="loading"
+                        android:textColor="#000000" />
 
                 </RelativeLayout>
 
@@ -115,17 +132,17 @@
                         android:id="@+id/rgMobilMotor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                            <RadioButton
-                                android:id="@+id/btnmobil"
-                                android:layout_width="350dp"
-                                android:layout_height="70dp"
-                                android:layout_marginTop="15dp"
-                                android:button="@null"
-                                android:background="@drawable/motor_mobil"
-                                android:layout_gravity="center"
-                                android:checked="true"
-                                android:gravity="center">
-                            </RadioButton>
+
+                        <RadioButton
+                            android:id="@+id/btnmobil"
+                            android:layout_width="350dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/motor_mobil"
+                            android:button="@null"
+                            android:checked="true"
+                            android:gravity="center"></RadioButton>
 
                         <RadioButton
                             android:id="@+id/btnmotor"
@@ -168,7 +185,7 @@
                                 android:layout_marginStart="280dp"
                                 android:layout_marginTop="45dp"
                                 android:fontFamily="@font/chelsea_market"
-                                android:text="HARGA"
+                                android:text="loading"
                                 android:textSize="14dp"
                                 android:textColor="#000000"
                                 android:textStyle="bold" />
@@ -200,7 +217,7 @@
                         android:layout_marginStart="280dp"
                         android:layout_marginTop="40dp"
                         android:fontFamily="@font/chelsea_market"
-                        android:text="HARGA"
+                        android:text="loading"
                         android:textSize="14dp"
                         android:textColor="#000000"
                         android:textStyle="bold" />
@@ -214,7 +231,7 @@
                     android:layout_marginTop="40dp"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/button1"
-                    android:text="Reserved Now  >"
+                    android:text="Reserve Now  >"
                     android:textSize="19dp"
                     android:textColor="@color/white"
                     android:fontFamily="@font/lemon" />

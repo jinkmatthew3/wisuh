@@ -50,7 +50,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.app.ActivityCompat;
-
+//joti coba nambahin implements filterable
+//public class CarwashActivity extends AppCompatActivity implements Filterable {
 public class CarwashActivity extends AppCompatActivity {
     LinearLayout llayout;
     Toolbar toolbar;
@@ -262,7 +263,60 @@ public class CarwashActivity extends AppCompatActivity {
         });
     }
 
+//    joti coba nambahin search
 
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.search_menu,menu);
+//        MenuItem item = menu.findItem(R.id.searchMenu);
+//        SearchView searchView = (SearchView) item.getActionView();
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                getFilter();
+//                return false;
+//            }
+//        });
+//        return super.onCreateOptionsMenu(menu);
+//    }
+//
+//    @Override
+//    public Filter getFilter() {
+//        return filter;
+//    }
+//    Filter filter = new Filter() {
+////        run on backgorund thread
+//        @Override
+//        protected FilterResults performFiltering(CharSequence constraint) {
+//            List<String> filteredList = new ArrayList<>();
+//            if (constraint.toString().isEmpty()){
+//                filteredList.addAll(listCarwash);
+//            }
+//            else{
+//                for (String movie: listCarwash){
+//                    if(movie.toLowerCase().contains(constraint.toString().toLowerCase())){
+//                        filteredList.add(movie);
+//                    }
+//                }
+//            }
+//            FilterResults filterResults = new FilterResults();
+//            filterResults.values=filteredList;
+//
+//            return filterResults;
+//        }
+////      run on a ui  thread
+//        @Override
+//        protected void publishResults(CharSequence constraint, FilterResults results) {
+//            listCarwash.clear();
+//            listCarwash.addAll((Collection<? extends String>) results.values);
+//
+//        }
+//    };
 }
 
 
