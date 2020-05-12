@@ -18,4 +18,6 @@
     <color name="color4">#59717c</color>
     <color name="color5">#9188A2</color>
     <color name="Transparent"> #00000000</color>
+    <color name="orange">#F99D2E</color>
+    <color name="Cream">#FFE4C2</color>
 </resources>

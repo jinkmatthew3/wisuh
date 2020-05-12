@@ -1,87 +1,48 @@
 package id.ac.umn.wisuh;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+        import androidx.appcompat.app.AppCompatActivity;
+        import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnSuccessListener;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.List;
+        import android.content.Intent;
+        import android.os.Bundle;
+        import android.view.Menu;
+        import android.view.MenuItem;
+        import com.google.android.material.tabs.TabLayout;
+        import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminActivity extends AppCompatActivity {
-
-    EditText etEmailUser, etNominal;
-    Button btnConfirm;
-    private FirebaseFirestore db;
-
+    TabLayout tabLayout;
+    ViewPager viewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
-        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        etEmailUser = (EditText) findViewById(R.id.etEmailUser);
-        etNominal = (EditText) findViewById(R.id.etNominal);
-        btnConfirm = (Button) findViewById(R.id.btnConfirm);
-        final int nominal = Integer.parseInt(etNominal.getText().toString());
-        Log.d("Nominal", String.valueOf(nominal));
-        //ambil database
-        db = FirebaseFirestore.getInstance();
-
-        btnConfirm.setOnClickListener(new View.OnClickListener() {
+        tabLayout = findViewById(R.id.tabLayout);
+        viewPager = findViewById(R.id.viewPager2);
+        tabLayout.addTab(tabLayout.newTab().setText("Top UP"));
+        tabLayout.addTab(tabLayout.newTab().setText("Register Car Wash"));
+        tabLayout.addTab(tabLayout.newTab().setText("Register Car Salon"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        final MyAdapter adapter = new MyAdapter(this, getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onClick(View v) {
-//                cek nominal gk boleh minus
-                if(nominal < 1){
-                    Toast.makeText(AdminActivity.this,"Nominal tidak valid",Toast.LENGTH_LONG).show();
-                }
-                else {
-                    //        ambil data dari koleksi User firestore
-                    db.collection("users").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            if (!queryDocumentSnapshots.isEmpty()) {
-                                List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
 
-                                for (DocumentSnapshot d : list) {
-                                    Customer c = new Customer();
-                                    c = d.toObject(Customer.class);
-                                    c.setId(d.getId());
-                                    if (etEmailUser.getText().toString().equals(c.getEmail())) {
-                                        c.setSaldo(c.getSaldo() + Integer.parseInt(etNominal.getText().toString()));
-                                        System.out.println(c.getSaldo());
-                                        db.collection("users").document(c.getId()).set(c).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Toast.makeText(AdminActivity.this, "TopUp Success", Toast.LENGTH_LONG).show();
-                                            }
-                                        });
-                                    } else {
-                                        Toast.makeText(AdminActivity.this, "Email Customer Salah", Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            }
-                        }
-                    });
-                }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
     public boolean onCreateOptionsMenu(Menu menu_logout) {
         getMenuInflater().inflate(R.menu.menu_logout,menu_logout);
@@ -99,5 +60,6 @@ public class AdminActivity extends AppCompatActivity {
         return true;
     }
 }
+
 
 
