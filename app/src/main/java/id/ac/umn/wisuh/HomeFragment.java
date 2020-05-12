@@ -21,6 +21,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+
 public class HomeFragment extends Fragment {
     private ImageButton btnnearby;
     private ImageButton btnsalon;
@@ -76,8 +79,18 @@ public class HomeFragment extends Fragment {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             Double saldo = document.getDouble("saldo");
+                            DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+                            DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+
+                            formatRp.setCurrencySymbol("IDR. ");
+                            formatRp.setMonetaryDecimalSeparator(',');
+                            formatRp.setGroupingSeparator('.');
+
+                            kursIndonesia.setDecimalFormatSymbols(formatRp);
+
                             String fName = document.getString("fName");
-                            tvSaldo.setText("IDR. " + saldo);
+//                            tvSaldo.setText("IDR. " + String.format("%.0f",saldo));
+                            tvSaldo.setText(kursIndonesia.format(saldo));
                             tvFName.setText("Hi, " + fName + " !");
                         }
                         else {

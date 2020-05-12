@@ -266,7 +266,8 @@ public class CarsalonActivity extends AppCompatActivity {
             ImageView imgjarak = new ImageView(this);
 //            imgrating.setLayoutParams(imageButtonParam);
             LayoutParams imgjrk = new LayoutParams(50, 50);
-            imgjrk.setMargins(720, 120, 0, 0);
+//            imgjrk.setMargins(720, 120, 0, 0);
+            imgjrk.setMargins(305, 220, 0, 0);
             imgjarak.setImageResource(R.drawable.distance);
             imgjarak.setLayoutParams(imgjrk);
 
@@ -279,7 +280,8 @@ public class CarsalonActivity extends AppCompatActivity {
             textjarak.setText(String.format("%.1f",dist)+" KM");
             textjarak.setTextColor(Color.BLACK);
             textjarak.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
-            txtjrk.setMargins(770, 120, 0, 0);
+//            txtjrk.setMargins(770, 120, 0, 0);
+            txtjrk.setMargins(365, 220, 0, 0);
 //            txtjrk.setMargins(580, 120, 0, 0);
             textjarak.setLayoutParams(txtjrk);
 
